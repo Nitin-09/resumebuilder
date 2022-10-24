@@ -1,8 +1,10 @@
 import Home from "./Components/Home";
+import Body from "./Components/Body";
 function App() {
   return (
-    <div className="p-2 flex flex-col gap-10 font-serif">
+    <div className="font-serif">
       <Home></Home>
+      <Body></Body>
     </div>
   );
 }
