@@ -2,7 +2,7 @@ import Home from "./Components/Home";
 import Body from "./Components/Body";
 function App() {
   return (
-    <div className="font-serif">
+    <div className="font-serif flex flex-col gap-5 overflow-hidden select-none">
       <Home></Home>
       <Body></Body>
     </div>
