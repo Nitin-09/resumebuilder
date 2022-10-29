@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import Editor from './Editor'
 
 function Body() {
@@ -8,10 +8,40 @@ function Body() {
     education:"Education",
     workExp:"Work Experience",
     projext:"Project",    
-    achivements:"Achivements",
+    skill:"Skills",
     summary:"Summary",
     other:"Other"
   };
+  const [information, setinformation] = useState({
+    [sections.basicInfo]:{
+      id:sections.basicInfo,
+      detail:{},
+    },
+    [sections.education]:{
+      id:sections.education,
+      details:[],
+    },
+    [sections.workExp]:{
+      id:sections.workExp,
+      details:[],
+    },
+    [sections.projext]:{
+      id:sections.projext,
+      detail:[],
+    },
+    [sections.skill]:{
+      id:sections.skill,
+      details:[],
+    },
+    [sections.summary]:{
+      id:sections.summary,
+      detail:"",
+    },
+    [sections.other]:{
+      id:sections.other,
+      details:[],
+    },
+  })
   return (
     <div className='flex flex-col gap-7 p-4 md:p-7 xl:px-16 items-center pt-0'>
       <p className='text-center text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-semibold'>Resume Builder</p>
@@ -25,7 +55,7 @@ function Body() {
           <span>Download</span>
         </button>
       </div>
-      <Editor sections={sections}></Editor>
+      <Editor sections={sections} information={information}></Editor>
     </div>
   )
 }
