@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import Editor from './Editor'
 
 function Body() {
@@ -7,7 +7,7 @@ function Body() {
     basicInfo:"Basic Info",
     education:"Education",
     workExp:"Work Experience",
-    projext:"Project",    
+    project:"Project",    
     skill:"Skills",
     summary:"Summary",
     other:"Other"
@@ -25,9 +25,9 @@ function Body() {
       id:sections.workExp,
       details:[],
     },
-    [sections.projext]:{
-      id:sections.projext,
-      detail:[],
+    [sections.project]:{
+      id:sections.project,
+      details:[],
     },
     [sections.skill]:{
       id:sections.skill,
@@ -35,13 +35,17 @@ function Body() {
     },
     [sections.summary]:{
       id:sections.summary,
-      detail:"",
+      about:"",
     },
     [sections.other]:{
       id:sections.other,
       details:[],
     },
   })
+  useEffect(() => {
+    console.log(information);
+  }, [information])
+  
   return (
     <div className='flex flex-col gap-7 p-4 md:p-7 xl:px-16 items-center pt-0'>
       <p className='text-center text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-semibold'>Resume Builder</p>
@@ -55,7 +59,7 @@ function Body() {
           <span>Download</span>
         </button>
       </div>
-      <Editor sections={sections} information={information}></Editor>
+      <Editor sections={sections} information={information} setinformation={setinformation}></Editor>
     </div>
   )
 }
