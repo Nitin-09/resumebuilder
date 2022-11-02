@@ -2,7 +2,7 @@ import React from 'react'
 
 function Resume() {
     return (
-        <div className='flex flex-col md:gap-1 items-center min-h-[540px] md:min-w-[70%] shadow-xl pt-1 border border-slate-100'>
+        <div className='flex flex-col md:gap-1 items-center w-3/4 md:min-w-[70%] shadow-xl pt-1 border border-slate-100'>
             <div className='justify-end  bg-violet-900 pb-4 text-white w-full flex flex-col items-center h-32 font-mono font-bold'>
                 <div className="flex flex-col">
                     <span className='text-3xl'>Nitin Gangwani</span>
