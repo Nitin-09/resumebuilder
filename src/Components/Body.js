@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import Editor from './Editor'
+import Resume from './Resume'
 
 function Body() {
   const color = ["bg-orange-500", "bg-green-500", "bg-yellow-500", "bg-blue-500 "]
@@ -60,6 +61,7 @@ function Body() {
         </button>
       </div>
       <Editor sections={sections} information={information} setinformation={setinformation}></Editor>
+      <Resume></Resume>
     </div>
   )
 }
