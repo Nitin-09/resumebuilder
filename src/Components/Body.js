@@ -16,30 +16,36 @@ function Body() {
   const [information, setinformation] = useState({
     [sections.basicInfo]:{
       id:sections.basicInfo,
+      sectionTitle:sections.basicInfo,
       detail:{},
     },
     [sections.education]:{
       id:sections.education,
+      sectionTitle:sections.education,
       details:[],
     },
     [sections.workExp]:{
       id:sections.workExp,
+      sectionTitle:sections.workExp,
       details:[],
     },
     [sections.project]:{
       id:sections.project,
+      sectionTitle:sections.project,
       details:[],
     },
     [sections.skill]:{
       id:sections.skill,
+      sectionTitle:sections.skill,
       details:[],
     },
     [sections.summary]:{
-      id:sections.summary,
+      sectionTitle:sections.summary,
       about:"",
     },
     [sections.other]:{
       id:sections.other,
+      sectionTitle:sections.other,
       details:[],
     },
   })
@@ -61,7 +67,7 @@ function Body() {
         </button>
       </div>
       <Editor sections={sections} information={information} setinformation={setinformation}></Editor>
-      <Resume></Resume>
+      <Resume sections={sections} information={information}></Resume>
     </div>
   )
 }
