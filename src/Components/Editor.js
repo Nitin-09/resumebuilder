@@ -33,6 +33,7 @@ function Editor(props) {
                 const tempDetail = {
                     firstName: values.firstName,
                     lastName: values.lastName,
+                    profile: values.profile,
                     title: values.title,
                     email: values.email,
                     phoneNumber: values.phoneNumber,
@@ -122,6 +123,7 @@ function Editor(props) {
     const [values, setvalues] = useState({
         firstName: activeInformation?.detail?.firstName || "",
         lastName: activeInformation?.detail?.lastName || "",
+        profile: activeInformation?.detail?.profile || "",
         title: activeInformation?.detail?.title || "",
         email: activeInformation?.detail?.email || "",
         phoneNumber: activeInformation?.detail?.phoneNumber || "",
@@ -152,8 +154,11 @@ function Editor(props) {
     const BasicInfoBody = (
         <div className='w-full flex flex-col gap-2'>
             <div className='flex'>
-                <InputControl label="First Name" type="text" placeholder="E.g. Sakshi" value={values.firstName || ""} onChange={(event) => setvalues((prev) => ({ ...prev, firstName: event.target.value }))}></InputControl>
+                <InputControl label="First Name" type="text" placeholder="E.g. Sakshi" value={values.firstName || ""} onChange={(event) => setvalues((prev) => ({ ...prev, firstName: event.target.value }))} required></InputControl>
                 <InputControl label="Last Name" type="text" placeholder="E.g. Galgale" value={values.lastName || ""} onChange={(event) => setvalues((prev) => ({ ...prev, lastName: event.target.value }))}></InputControl>
+            </div>
+            <div>
+                <InputControl label="Profile" type="file" accept="image/png, image/jpeg" value={values.profile || ""} onChange={(event) => setvalues((prev) => ({ ...prev, profile: event.target.value }))}></InputControl>
             </div>
             <div>
                 <InputControl label="Title" type="text" placeholder="E.g. Web Developer" value={values.title || ""} onChange={(event) => setvalues((prev) => ({ ...prev, title: event.target.value }))}></InputControl>
@@ -315,6 +320,7 @@ function Editor(props) {
                     <button className={`px-3 py-1 text-xs md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl whitespace-nowrap cursor-pointer ${key === activekey ? "text-blue-500 underline" : null} `} onClick={() => { setactivekey(key) }} key={key}>{sections[key]}</button>
                 )}
             </div>
+            <form className='items-center flex flex-col gap-2'>
             <InputControl label='Section Title' placeholder="Enter Section Title" value={sectionTitle} onChange={(event) => setsectionTitle(event.target.value)}></InputControl>
             <div className='flex flex-wrap items-center gap-5'>
                 {activeInformation?.details ? activeInformation?.details.map((item, index) => (
@@ -330,6 +336,7 @@ function Editor(props) {
             <button onClick={handelSave} className="bg-blue-500 hover:bg-blue-700 text-sm md:text-xl lg:text-2xl px-2 py-1 font-bold rounded inline-flex items-center">
                 <span>Save</span>
             </button>
+            </form>
         </div>
     )
 }
