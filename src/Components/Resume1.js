@@ -5,7 +5,7 @@ const Resume = forwardRef((props, ref) => {
     const information = props.information
     const sections = props.sections
     const info = {
-        basicInfo: information[sections.basicInfo],
+        profile: information[sections.profile],
         education: information[sections.education],
         workExp: information[sections.workExp],
         project: information[sections.project],
@@ -14,11 +14,11 @@ const Resume = forwardRef((props, ref) => {
         other: information[sections.other]
     }
     const sectionDiv = {
-        [sections.basicInfo]: (
+        [sections.profile]: (
             <>
                 <div className='mt-20 flex flex-col border-2 border-emerald-500 bg-white w-[570px] h-24 items-center justify-center'>
-                    <p className='text-4xl capitalize font-medium text-emerald-500'>{info.basicInfo.detail.firstName ? info.basicInfo.detail.firstName : "Jonathan"} {info.basicInfo.detail.lastName ? info.basicInfo.detail.lastName : "Jonhson"}</p>
-                    <p className='text-base capitalize font-medium text-black'>{info.basicInfo.detail.title ? info.basicInfo.detail.title : "Computer Application Specialist"}</p>
+                    <p className='text-4xl capitalize font-medium text-emerald-500'>{info.profile.detail.firstName ? info.profile.detail.firstName : "Jonathan"} {info.profile.detail.lastName ? info.profile.detail.lastName : "Jonhson"}</p>
+                    <p className='text-base capitalize font-medium text-black'>{info.profile.detail.title ? info.profile.detail.title : "Computer Application Specialist"}</p>
                 </div>
                 <div className='mt-2 p-4 flex flex-col gap-5'>
                     <div className='flex flex-col gap-3'>
@@ -27,15 +27,15 @@ const Resume = forwardRef((props, ref) => {
                     </div>
                     <div className='flex flex-col'>
                         <span className='text-white font-semibold text-base'>Address</span>
-                        <span className='text-sm capitalize font-medium text-white'>{info.basicInfo.detail.address ? info.basicInfo.detail.address : "4181 Faitrade Road"}, {info.basicInfo.detail.city ? info.basicInfo.detail.city : "Aswain"}, {info.basicInfo.detail.state ? info.basicInfo.detail.state : "Wisconsin"}{info.basicInfo.detail.zipCode ? "," + info.basicInfo.detail.zipCode : ""}</span>
+                        <span className='text-sm capitalize font-medium text-white'>{info.profile.detail.address ? info.profile.detail.address : "4181 Faitrade Road"}, {info.profile.detail.city ? info.profile.detail.city : "Aswain"}, {info.profile.detail.state ? info.profile.detail.state : "Wisconsin"}{info.profile.detail.zipCode ? "," + info.profile.detail.zipCode : ""}</span>
                     </div>
                     <div className='flex flex-col'>
                         <span className='text-white font-semibold text-base'>Phone</span>
-                        <span className='text-sm font-medium text-white'>{info.basicInfo.detail.phoneNumber ? info.basicInfo.detail.phoneNumber : "(053) 123 4567"}</span>
+                        <span className='text-sm font-medium text-white'>{info.profile.detail.phoneNumber ? info.profile.detail.phoneNumber : "(053) 123 4567"}</span>
                     </div>
                     <div className='flex flex-col'>
                         <span className='text-white font-semibold text-base'>Email</span>
-                        <a className='text-sm font-medium text-white' href={info.basicInfo.detail.email}>{info.basicInfo.detail.email ? info.basicInfo.detail.email : "j.jonhson@gmail.com"}</a>
+                        <a className='text-sm font-medium text-white' href={info.profile.detail.email}>{info.profile.detail.email ? info.profile.detail.email : "j.jonhson@gmail.com"}</a>
                     </div>
                 </div>
             </>
@@ -174,11 +174,12 @@ const Resume = forwardRef((props, ref) => {
     return (
         <div ref={ref} className='flex min-w-[842px] w-[842px] min-h-[1190px]'>
             <div className='bg-emerald-500 w-72 min-h-[1190px]'>
-                {sectionDiv[sections.basicInfo]}
+                {sectionDiv[sections.profile]}
                 {sectionDiv[sections.skill]}
             </div>
             <div className='w-full px-5 flex flex-col gap-y-3'>
-                <div className='h-44 border-2'>
+                <div className='h-44'>
+
                 </div>
                 {sectionDiv[sections.summary]}
                 {sectionDiv[sections.workExp]}

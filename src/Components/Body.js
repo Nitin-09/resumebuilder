@@ -8,7 +8,7 @@ function Body() {
   const ResumeRef = useRef()
   // sections to take input in Edidtor component
   const sections = {
-    basicInfo: "Basic Info",
+    profile: "Profile",
     education: "Education",
     workExp: "Work Experience",
     project: "Project",
@@ -18,9 +18,9 @@ function Body() {
   };
   // information the user will enter will store in this state
   const [information, setinformation] = useState({
-    [sections.basicInfo]: {
-      id: sections.basicInfo,
-      sectionTitle: sections.basicInfo,
+    [sections.profile]: {
+      id: sections.profile,
+      sectionTitle: sections.profile,
       detail: {},
     },
     [sections.education]: {
@@ -66,8 +66,10 @@ function Body() {
           }}
           content={() =>ResumeRef.current}></ReactToPrint>
       </div>
+      <div className='grid gap-10 place-items-center'>
       <Editor sections={sections} information={information} setinformation={setinformation}></Editor>
       <Resume1 ref={ResumeRef} sections={sections} information={information}></Resume1>
+      </div>
     </div>
   )
 }
