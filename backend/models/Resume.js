@@ -1,33 +1,30 @@
 const mongoose =require('mongoose')
 const { Schema } = mongoose;
 const ResumeSchema = new Schema({
+    user:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    },
     profile:{
-        type: Array,
-        required: true
+        type: Array
     },
     education:{
-        type: Array,
-        required: true,
+        type: Array
     },
     workExperience:{
-        type: Array,
-        required: true
+        type: Array
     },
     project:{
-        type: Array,
-        required: true
+        type: Array
     },
     skills:{
-        type: Array,
-        required: true
+        type: Array
     },
     summary:{
-        type: Array,
-        required: true
+        type: Array
     },
     others:{
-        type: Array,
-        required: true
+        type: Array
     },
 
 })

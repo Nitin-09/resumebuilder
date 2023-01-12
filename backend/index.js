@@ -11,7 +11,7 @@ app.use(cors())
 app.use(express.json())
 
 //routes
-// app.use('/api/auth',require('./routes/auth'))
+app.use('/api/auth',require('./routes/auth'))
 app.use('/api/resume',require('./routes/resume'))
 
 

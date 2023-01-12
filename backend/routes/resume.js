@@ -1,57 +1,53 @@
 const express = require('express')
 const router = express.Router()
 const Resume = require('../models/Resume')
+const fetchuser = require('../middleware/fetchuser');
 
 // Route 1: adding a new note using post:- localhost:5000/api/notes/addnote
-router.post('/add', async (req, res) => {
-        const { profile, education, workExperience, project, skills, others } = req.body
+router.post('/createresume', fetchuser,
+    async (req, res) => {
+        // const { profile, education, workExperience, project, skills, others } = req.body
         try {
-            const resume = new Resume({ profile, education, workExperience, project, skills, others })
-            const resumed = await resume.save()
-            res.json(resumed)
+            const resume = new Resume({ user: req.user.id, profile: [], education: [], workExperience: [], project: [], skills: [], others: [] })
+            const resumeData = await resume.save()
+            res.json(resumeData)
 
+        } catch (error) {
+            console.error(error.message)
+            res.status(500).send(error.message);
+        }
+    })
+router.get('/fetchResume', fetchuser,
+    async (req, res) => {
+        try {
+            const resume = await Resume.find({ user: req.user.id })
+            res.json(resume)
         } catch (error) {
             console.error(error.message)
             res.status(500).send("Some error occured");
         }
     })
 
-
-// Route 3: updating a note using post:- localhost:5000/api/notes/updatenote/:id
-// router.put('/updatenote/:id',fetchuser ,
-// async (req,res)=>{
-//     const {title,description,tag }=req.body 
-//     try {
-//     const newnote={};
-//     if(title){newnote.title=title}
-//     if(description){newnote.description=description}
-//     if(tag){newnote.tag=tag}
-//     let note=await Notes.findById(req.params.id)
-//     if(!note){ return res.status(404).send("NOT FOUND")}
-//     if(note.user.toString()!==req.user.id){ return res.status(404).send("NOT ALLOWED")}
-//     note=await Notes.findByIdAndUpdate(req.params.id,{$set:newnote},{new:true})
-//     res.json({note})           
-// } catch (error) {
-//     console.error(error.message)
-//     res.status(500).send("Some error occured");  
-// }
-// })
-
-
-// // Route 3: deleting a note using post:- localhost:5000/api/notes/deletenote/:id
-// router.delete('/deletenote/:id',fetchuser ,
-// async (req,res)=>{
-//     try {
-//     let note=await Notes.findById(req.params.id)
-//     if(!note){ return res.status(404).send("NOT FOUND")}
-//     if(note.user.toString()!==req.user.id){ return res.status(404).send("NOT ALLOWED")}
-//     note=await Notes.findByIdAndDelete(req.params.id)
-//     res.json({"Succes":"Note has been deleted successfully"})
-//     }
-//     catch (error) {
-//         console.error(error.message)
-//         res.status(500).send("Some error occured");  
-//     }
-// })
+router.post('/submitdetails/:id',fetchuser,
+    (req, res) => {
+        try {
+            let resume = {}
+            console.log(req.body)
+            for (let key in req.body) {
+                resume[key] = req.body[key];
+            }
+            Resume.findByIdAndUpdate(req.params.id, { $set: resume }, (err, doc) => {
+                if (err) {
+                    console.error(err.message)
+                    res.status(500).send(err.message);
+                }
+                else {
+                    res.status(200).json(doc)
+                }
+            })
+        } catch (error) {
+            console.error(error.message)
+        }
+    })
 
 module.exports = router;

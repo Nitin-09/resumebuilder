@@ -1,15 +1,23 @@
 import { useForm } from "react-hook-form";
 import Config from "../config.js";
-import { useEffect } from "react";
+import { useEffect,useContext } from "react";
 import ProgressBar from "./ProgressBar.js";
+import ResumeContext from "../context/Resume/ResumeContext.js";
 
 export default function Forms(props) {
+    const context = useContext(ResumeContext)
+    const { submitDetails } = context
     const InputClasses = "block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer appearance-none m-1 autofill:m-1"
     const LabelClasses = "block peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-100 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm({ mode: "all" });
-    
-    const onSubmit = data => console.log(data);
+    const { register, handleSubmit, watch, formState: { errors }} = useForm({ mode: "all" });
+    const onSubmit = data => {
+        let Obj={}
+        Config[props.activeKey][0].input?.forEach(element => {
+            Obj[element.name]=data[element.name]
+        });
+        submitDetails(Obj,props.activeKey)
+        }
     useEffect(() => {
         Config.education[0]?.input[5]?.condition(watch("checkEducation"))
         Config.workExperience[0]?.input[5]?.condition(watch("checkWork"))
