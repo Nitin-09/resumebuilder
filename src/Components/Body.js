@@ -1,58 +1,12 @@
-import React, { useState, useEffect,useRef } from 'react'
-import Editor from './Editor'
-import Resume1 from './Resume1'
+import React, { useState, useEffect, useRef } from 'react'
 import ReactToPrint from 'react-to-print'
+import Section from './Section'
+import Forms from './Forms'
 
-function Body() {
+function Body(props) {
   // Reference of Resume Component
   const ResumeRef = useRef()
-  // sections to take input in Edidtor component
-  const sections = {
-    profile: "Profile",
-    education: "Education",
-    workExp: "Work Experience",
-    project: "Project",
-    skill: "Skills",
-    summary: "Summary",
-    other: "Other"
-  };
-  // information the user will enter will store in this state
-  const [information, setinformation] = useState({
-    [sections.profile]: {
-      id: sections.profile,
-      sectionTitle: sections.profile,
-      detail: {},
-    },
-    [sections.education]: {
-      id: sections.education,
-      sectionTitle: sections.education,
-      details: [],
-    },
-    [sections.workExp]: {
-      id: sections.workExp,
-      sectionTitle: sections.workExp,
-      details: [],
-    },
-    [sections.project]: {
-      id: sections.project,
-      sectionTitle: sections.project,
-      details: [],
-    },
-    [sections.skill]: {
-      id: sections.skill,
-      sectionTitle: sections.skill,
-      details: [],
-    },
-    [sections.summary]: {
-      sectionTitle: sections.summary,
-      about: "",
-    },
-    [sections.other]: {
-      id: sections.other,
-      sectionTitle: sections.other,
-      details: [],
-    },
-  })
+  const [activeKey, setActiveKey] = useState("profile")
   return (
     <div className='flex flex-col gap-7 p-4 md:p-7 xl:px-16 items-center pt-0'>
       <p className='text-center text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-semibold'>Resume Builder</p>
@@ -64,11 +18,13 @@ function Body() {
               <span>Download</span>
             </button>)
           }}
-          content={() =>ResumeRef.current}></ReactToPrint>
+          content={() => ResumeRef.current}></ReactToPrint>
       </div>
       <div className='grid gap-10 place-items-center'>
-      <Editor sections={sections} information={information} setinformation={setinformation}></Editor>
-      <Resume1 ref={ResumeRef} sections={sections} information={information}></Resume1>
+        <div className='flex flex-row min-w-[90vw] md:min-w-[90vw] lg:min-w-[90vw] min-h-[85vh]'>
+          <Section activeKey={activeKey} setActiveKey={setActiveKey}></Section>
+          <Forms activeKey={activeKey}></Forms>
+        </div>
       </div>
     </div>
   )

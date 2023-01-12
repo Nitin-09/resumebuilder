@@ -178,8 +178,8 @@ const Resume = forwardRef((props, ref) => {
                 {sectionDiv[sections.skill]}
             </div>
             <div className='w-full px-5 flex flex-col gap-y-3'>
-                <div className='h-44'>
-
+                <div className='mt-5 self-end'>
+                    <img className='h-52 rounded-md' src={info.profile.detail.profile} alt="" />
                 </div>
                 {sectionDiv[sections.summary]}
                 {sectionDiv[sections.workExp]}
