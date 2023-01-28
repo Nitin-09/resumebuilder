@@ -1,9 +1,10 @@
 import React,{useState} from 'react'
 
-function ProgressBar() {
+function ProgressBar(props) {
     const [star, setStar] = useState(0)
     const handelRating = (e) => {
         setStar(e.target.id)
+        props.setskillProgress(e.target.id)
     }
     return (
         <div className='mt-5 peer-checked:invisible block w-full basis-1/2'>

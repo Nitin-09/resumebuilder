@@ -14,20 +14,29 @@ export default function Forms(props) {
 
     const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm({ mode: "all" });
 
-    const onSubmit = data => {
-        if (data["checkEducation"] && activeKey === 'education') data["schoolEndDate"] = "Present"
-        if (data["checkWork"] && activeKey === 'workExperience') data["workEndDate"] = "Present"
-            (watch("checkBar") && activeKey === 'skills') ? data["skillRating"] = null : data["skillRating"] = skillProgress
+    const onSubmit = (data) => {
+        let Obj = {}
+        Config[props.activeKey][0].input?.forEach(element => {
+            Obj[element.name] = data[element.name]
+        });
+        if (Obj["checkEducation"] && activeKey === 'education') Obj["schoolEndDate"] = "Present";
+        if (Obj["checkWork"] && activeKey === 'workExperience') Obj["workEndDate"] = "Present";
+        if (watch("checkBar") && activeKey === 'skills') Obj["skillRating"] = skillProgress;
         if (Information[activeKey].detail) {
-            setInformation((prev) => ({ ...prev, [activeKey]: { ...prev[activeKey], detail: data } }))
+            let Data = Information
+            Data[activeKey].detail = Obj
+            setInformation({})
+            setInformation(Data)
         }
         else {
-            const tempDetails = [...Information[activeKey]?.details];
-            tempDetails[activeChipIndex] = data
-            setInformation((prev) => ({ ...prev, [activeKey]: { ...prev[activeKey], details: tempDetails } }))
+            let Data = Information
+            Data[activeKey].details[activeChipIndex] = Obj
+            setInformation({})
+            setInformation(Data)
         }
-        console.log(Information)
-        // submitDetails(Obj, activeKey)
+        console.log(Information);
+        submitDetails(Information)
+        localStorage.setItem("Information", JSON.stringify(Information))
     }
 
     const handelAdd = () => {
@@ -54,24 +63,29 @@ export default function Forms(props) {
     }, [watch("checkEducation"), watch("checkWork"), watch("checkBar"), activeKey])
 
     useEffect(() => {
-        Information[activeKey].detail ?
-            Object.keys(Information[activeKey].detail).forEach(element=>{
-               setValue(element,Information[activeKey].detail[element])
-            }):
-            Object.keys(Information[activeKey].details[activeChipIndex]).forEach(element=>{
-                setValue(element,Information[activeKey].details[activeChipIndex][element])
-            })
-            
-    }, [ Information])
+        let value = ""
+        Config[activeKey][0].input.forEach(element => {
+            if (!element.value) {
+                if (Information[activeKey].detail) {
+                    value = Information[activeKey].detail[element.name] ? Information[activeKey].detail[element.name] : ""
+                }
+                if (Information[activeKey].details) {
+                    value = Information[activeKey].details[activeChipIndex] ? Information[activeKey].details[activeChipIndex][element.name] ? Information[activeKey].details[activeChipIndex][element.name] : "" : ""
+                }
+                setValue(element.name, value)
+            }
+        })
+
+    }, [activeKey, Information, activeChipIndex])
 
 
 
     return (
-        <div className="items-center basis-9/12 shadow-xl pt-1 pb-6 border border-slate-100">
-            <form className="grid grid-cols-6 gap-2 w-full mt-10 px-5 md:px-10" onSubmit={handleSubmit(onSubmit)}>
-                <div className='col-span-6 flex flex-wrap items-center gap-5 mb-9'>
+        <div className="items-center basis-9/12 shadow-xl pt-1 border bg-white border-slate-100 ">
+            <form className="grid grid-cols-6 gap-2 w-full h-[100%] md:mt-10 px-3 md:px-10" onSubmit={handleSubmit(onSubmit)}>
+                <div className='col-span-6 flex flex-wrap items-center gap-2 md:gap-5 mb-4'>
                     {Information[activeKey]?.details?.map((item, index) => (
-                        <div key={activeKey + index} className={`${activeChipIndex === index ? 'bg-blue-500' : 'bg-gray-400'} cursor-pointer flex gap-3 items-center  px-3 rounded-3xl justify-center'`} onClick={() => setactiveChipIndex(index)}>
+                        <div key={activeKey + index} className={`${activeChipIndex === index ? 'bg-blue-500' : 'bg-gray-400'} cursor-pointer flex gap-2 md:gap-4 items-center px-2 md:px-3 rounded-3xl justify-center'`} onClick={() => setactiveChipIndex(index)}>
                             <p className='capitalize text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl'>{`${activeKey} ${index + 1}`}</p>
                             <span className='pb-1 font-sans text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl hover:font-bold' onClick={(event) => { event.stopPropagation(); handelDelete(index) }} >x</span>
 
@@ -83,15 +97,15 @@ export default function Forms(props) {
 
                 {
                     Config[activeKey][0].input.map((element) => {
-                        const InputClasses = "block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer appearance-none m-1 autofill:m-1"
-                        const LabelClasses = "block peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-100 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        const InputClasses = "block py-2.5 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer appearance-none m-1 autofill:m-1"
+                        const LabelClasses = "text-xs block peer-focus:font-medium absolute md:text-sm text-gray-500 duration-300 transform -translate-y-6 scale-100 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                         let divc = ""
                         if (element.span === 6)
                             divc = "relative mb-6 inline-block col-span-6"
                         else if (element.span === 3)
-                            divc = "relative mb-6 inline-block col-span-3"
+                            divc = "relative mb-6 inline-block col-span-6 md:col-span-3"
                         else
-                            divc = "relative mb-6 inline-block col-span-2"
+                            divc = "relative mb-6 inline-block col-span-6 md:col-span-2"
                         return (
                             <span key={element.name} id={element.name} className={divc}>
 
@@ -140,7 +154,7 @@ export default function Forms(props) {
                     }
                     )
                 }
-                <input className="col-span-6 block disabled:cursor-not-allowed cursor-pointer bg-black hover:bg-blue-600 disabled:hover:bg-black text-white font-bold py-2 px-4 rounded mx-auto" type="submit" />
+                <input className="justify-self-end place-self-end shadow-md shadow-gray-700 focus:shadow-sm focus:translate-y-1 p-2 m-2 col-span-6 disabled:cursor-not-allowed cursor-pointer bg-black hover:bg-blue-600 disabled:hover:bg-black text-white font-bold py-2 px-4 rounded mx-auto" type="submit" />
             </form >
         </div >
     );

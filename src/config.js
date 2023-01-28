@@ -4,7 +4,7 @@ const config={
             "input": [
                 {
                     "sequence": 0,
-                    "name": "sectionTitle",
+                    "name": "sectionTitleProfile",
                     "label": "Section Title",
                     "type": "text",
                     "required": "Section Title cannot be empty",
@@ -25,7 +25,7 @@ const config={
                         "value": "[A-Za-z]{3,}",
                         "message": "First Name must be atleast 3 characters long"
                     },
-                    "span": 3
+                    "span": 3,
                 },
                 {
                     "sequence": 2,
@@ -142,7 +142,7 @@ const config={
             "input": [
                 {
                     "sequence": 0,
-                    "name": "sectionTitle",
+                    "name": "sectionTitleEducation",
                     "label": "Section Title",
                     "type": "text",
                     "required": "Section Title cannot be empty",
@@ -189,6 +189,7 @@ const config={
                     "sequence": 4,
                     "name": "schoolEndDate",
                     "label": "End Date",
+                    "value":(new Date).getFullYear() + "-" + (((new Date).getMonth() < 10) ? "0" + ((new Date).getMonth() + 1) : (new Date).getMonth() + 1),
                     "type": "month",
                     "required": "Please Select course end date",
                     "span": 2
@@ -199,13 +200,13 @@ const config={
                     "label": "I am currently studying here.",
                     "type": "checkbox",
                     "span": 2,
+                    "reposnsive_span":6,
                     "inputClassConfig":"cursor-pointer peer mx-3",
-                    "labelClassConfig":"text-sm text-gray-500 cursor-pointer ",
+                    "labelClassConfig":"text-xs text-gray-500 cursor-pointer ",
                     "condition":(a)=>{
                         let element=document.getElementById("schoolEndDate")
                         if(a){
                         element?.classList.add("opacity-0")
-
                     }
                         else
                         element?.classList.remove("opacity-0")
@@ -257,7 +258,7 @@ const config={
             "input": [
                 {
                     "sequence": 0,
-                    "name": "sectionTitle",
+                    "name": "sectionTitleWorkExp",
                     "label": "Section Title",
                     "type": "text",
                     "required": "Section Title cannot be empty",
@@ -304,6 +305,7 @@ const config={
                     "sequence": 4,
                     "name": "workEndDate",
                     "label": "End Date",
+                    "value":(new Date).getFullYear() + "-" + (((new Date).getMonth() < 10) ? "0" + ((new Date).getMonth() + 1) : (new Date).getMonth() + 1),
                     "type": "month",
                     "required": "Please Select work end date",
                     "span": 2
@@ -345,7 +347,7 @@ const config={
             "input": [
                 {
                     "sequence": 0,
-                    "name": "sectionTitle",
+                    "name": "sectionTitleProject",
                     "label": "Section Title",
                     "type": "text",
                     "required": "Section Title cannot be empty",
@@ -401,7 +403,7 @@ const config={
             "input": [
                 {
                     "sequence": 0,
-                    "name": "sectionTitle",
+                    "name": "sectionTitleSkills",
                     "label": "Section Title",
                     "type": "text",
                     "required": "Section Title cannot be empty",
@@ -458,7 +460,7 @@ const config={
             "input": [
                 {
                     "sequence": 0,
-                    "name": "sectionTitle",
+                    "name": "sectionTitleSummary",
                     "label": "Section Title",
                     "type": "text",
                     "required": "Section Title cannot be empty",
@@ -490,7 +492,7 @@ const config={
             "input": [
                 {
                     "sequence": 0,
-                    "name": "sectionTitle",
+                    "name": "sectionTitleOthers",
                     "label": "Section Title",
                     "type": "text",
                     "required": "Section Title cannot be empty",
@@ -524,7 +526,7 @@ const config={
                         "message": "Value must be atleast 3 characters long"
                     },
                     "span": 6
-                }
+                },
             ],
             "button": {}
         }

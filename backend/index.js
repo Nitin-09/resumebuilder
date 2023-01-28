@@ -13,6 +13,7 @@ app.use(express.json())
 //routes
 app.use('/api/auth',require('./routes/auth'))
 app.use('/api/resume',require('./routes/resume'))
+app.use('/api/tempelates',require('./routes/tempelate'))
 
 
 app.listen(port, () => {
