@@ -5,11 +5,14 @@ const ResumeSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
+    tempelateId:{
+        type: String,
+    },
     profile:{
-        type: Array
+        type: Array,
     },
     education:{
-        type: Array
+        type: Array,
     },
     workExperience:{
         type: Array

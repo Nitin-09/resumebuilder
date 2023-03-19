@@ -1,6 +1,8 @@
 const connectToMongo =require('./db')
 const express = require('express')
 const cors=require('cors')
+const multer = require('multer')
+const upload= multer({dest: "uploads/"})
 connectToMongo();
 
 const app = express()
@@ -13,7 +15,7 @@ app.use(express.json())
 //routes
 app.use('/api/auth',require('./routes/auth'))
 app.use('/api/resume',require('./routes/resume'))
-app.use('/api/tempelates',require('./routes/tempelate'))
+app.use('/api/tempelates',require('./routes/tempelates'))
 
 
 app.listen(port, () => {

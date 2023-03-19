@@ -5,7 +5,7 @@ import ProgressBar from "./ProgressBar.js";
 import ResumeContext from "../context/Resume/ResumeContext.js";
 
 export default function Forms(props) {
-    const { Information, setInformation, activeKey } = props
+    const { Information, setInformation, activeKey, ResumeId } = props
     const context = useContext(ResumeContext)
     const { submitDetails } = context
 
@@ -13,46 +13,48 @@ export default function Forms(props) {
     const [activeChipIndex, setactiveChipIndex] = useState(0)
 
     const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm({ mode: "all" });
-
     const onSubmit = (data) => {
         let Obj = {}
-        Config[props.activeKey][0].input?.forEach(element => {
+        Config[activeKey][0].input?.forEach(element => {
             Obj[element.name] = data[element.name]
         });
         if (Obj["checkEducation"] && activeKey === 'education') Obj["schoolEndDate"] = "Present";
         if (Obj["checkWork"] && activeKey === 'workExperience') Obj["workEndDate"] = "Present";
         if (watch("checkBar") && activeKey === 'skills') Obj["skillRating"] = skillProgress;
-        if (Information[activeKey].detail) {
+        if (!Information[activeKey][0].details) {
             let Data = Information
-            Data[activeKey].detail = Obj
+            Data[activeKey][0] = Obj
             setInformation({})
             setInformation(Data)
         }
         else {
             let Data = Information
-            Data[activeKey].details[activeChipIndex] = Obj
+            Data[activeKey][0].details[activeChipIndex] = Obj
             setInformation({})
             setInformation(Data)
         }
-        console.log(Information);
-        submitDetails(Information)
-        localStorage.setItem("Information", JSON.stringify(Information))
+        submitDetails(Information, ResumeId)
+        // console.log(Information)
+        props.showAlert(`${activeKey} data subbmitted successfully`, "success")
     }
 
     const handelAdd = () => {
-        const details = Information[activeKey]?.details
+        const details = Information[activeKey][0]?.details
+        // console.log(details);
         if (!details) return;
         const lastDetail = details.slice(-1)[0]
         if (!Object.keys(lastDetail).length) return;
         details?.push({})
+        // console.log(details);
+        // console.log(Information)
         setInformation((prev) => ({ ...prev, [activeKey]: { ...Information[activeKey] } }))
         setactiveChipIndex(details?.length - 1)
     }
     const handelDelete = (index) => {
-        const details = Information[activeKey]?.details ? [...Information[activeKey]?.details] : "";
+        const details = Information[activeKey][0]?.details
         if (!details) return;
         details.splice(index, 1)
-        setInformation((prev) => ({ ...prev, [activeKey]: { ...Information[activeKey], details: details } }))
+        setInformation((prev) => ({ ...prev, [activeKey]: { ...Information[activeKey][0], details: details } }))
         setactiveChipIndex((prev) => (prev === index ? 0 : prev - 1))
     }
 
@@ -66,11 +68,11 @@ export default function Forms(props) {
         let value = ""
         Config[activeKey][0].input.forEach(element => {
             if (!element.value) {
-                if (Information[activeKey].detail) {
-                    value = Information[activeKey].detail[element.name] ? Information[activeKey].detail[element.name] : ""
+                if (!Information[activeKey][0].details) {
+                    value = Information[activeKey][0][element.name] ? Information[activeKey][0][element.name] : ""
                 }
-                if (Information[activeKey].details) {
-                    value = Information[activeKey].details[activeChipIndex] ? Information[activeKey].details[activeChipIndex][element.name] ? Information[activeKey].details[activeChipIndex][element.name] : "" : ""
+                if (Information[activeKey][0]?.details) {
+                    value = Information[activeKey][0].details[activeChipIndex] ? Information[activeKey][0].details[activeChipIndex][element.name] ? Information[activeKey][0].details[activeChipIndex][element.name] : "" : ""
                 }
                 setValue(element.name, value)
             }
@@ -78,20 +80,25 @@ export default function Forms(props) {
 
     }, [activeKey, Information, activeChipIndex])
 
+    useEffect(() => {
+        setactiveChipIndex(0)
+    }, [activeKey])
+
 
 
     return (
-        <div className="items-center basis-9/12 shadow-xl pt-1 border bg-white border-slate-100 ">
-            <form className="grid grid-cols-6 gap-2 w-full h-[100%] md:mt-10 px-3 md:px-10" onSubmit={handleSubmit(onSubmit)}>
+        <div className="items-center basis-9/12 shadow-xl pt-1 pb-3 border bg-white border-slate-100 ">
+            <form id="data" className="grid grid-cols-6 gap-2 w-full h-fit md:mt-10 px-3 md:px-10" onSubmit={handleSubmit(onSubmit)}>
                 <div className='col-span-6 flex flex-wrap items-center gap-2 md:gap-5 mb-4'>
-                    {Information[activeKey]?.details?.map((item, index) => (
+                    {Information[activeKey][0]?.details?.map((item, index) => (
                         <div key={activeKey + index} className={`${activeChipIndex === index ? 'bg-blue-500' : 'bg-gray-400'} cursor-pointer flex gap-2 md:gap-4 items-center px-2 md:px-3 rounded-3xl justify-center'`} onClick={() => setactiveChipIndex(index)}>
                             <p className='capitalize text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl'>{`${activeKey} ${index + 1}`}</p>
                             <span className='pb-1 font-sans text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl hover:font-bold' onClick={(event) => { event.stopPropagation(); handelDelete(index) }} >x</span>
 
                         </div>
+
                     ))}
-                    {Information[activeKey]?.details?.length > 0 ?
+                    {Information[activeKey][0]?.details?.length > 0 ?
                         <div className='text-blue-800 font-extrabold cursor-pointer' onClick={handelAdd}>+New</div> : ""}
                 </div>
 

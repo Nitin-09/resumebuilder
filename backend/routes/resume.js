@@ -8,34 +8,45 @@ router.post('/createresume', fetchuser,
     async (req, res) => {
         // const { profile, education, workExperience, project, skills, others } = req.body
         try {
-            const resume = new Resume({ user: req.user.id, profile: [], education: [], workExperience: [], project: [], skills: [], others: [] })
+            const resume = new Resume({ user: req.user.id,tempelateId:req.body.tid, profile: {}, education: [{ "details": [] }], workExperience: [{ "details": [] }], project: [{ "details": [] }], skills: [{ "details": [] }], summary: [{}], others: [{ "details": [] }] })
             const resumeData = await resume.save()
             res.json(resumeData)
 
         } catch (error) {
             console.error(error.message)
-            res.status(500).send(error.message);
+            res.status(500).send(error.message); 11
         }
     })
-router.get('/fetchResume', fetchuser,
-    async (req, res) => {
-        try {
-            const resume = await Resume.find({ user: req.user.id })
-            res.json(resume)
-        } catch (error) {
-            console.error(error.message)
-            res.status(500).send("Some error occured");
-        }
-    })
+router.post('/fetchResume', fetchuser, async (req, res) => {
+    try {
+        const resume = await Resume.find({ user: req.user.id, _id: req.body.rid }).select("-_id").select("-user").select("-__v");
+        res.json(resume)
+    } catch (error) {
 
-router.post('/submitdetails/:id',fetchuser,
+        console.error(error.message)
+        res.status(500).send({ error: error.message });
+
+    }
+
+})
+router.post('/fetchAllResume', fetchuser, async (req, res) => {
+    try {
+        const resume = await Resume.find({ user: req.user.id })
+        res.json(resume)
+    } catch (error) {
+
+        console.error(error.message)
+        res.status(500).send({ error: error.message });
+
+    }
+
+})
+
+router.post('/submitdetails/:id', fetchuser,
     (req, res) => {
         try {
-            let resume = {}
-            console.log(req.body)
-            for (let key in req.body) {
-                resume[key] = req.body[key];
-            }
+            let resume = { profile: req.body.profile, education: [{ "details": req.body.education[0].details }], workExperience: [{ "details": req.body.workExperience[0].details }], project: [{ "details": req.body.project[0].details }], skills: [{ "details": req.body.skills[0].details }], summary: req.body.summary, others: [{ "details": req.body.others[0].details }] }
+            console.log(req.body.education.details)
             Resume.findByIdAndUpdate(req.params.id, { $set: resume }, (err, doc) => {
                 if (err) {
                     console.error(err.message)

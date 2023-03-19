@@ -21,7 +21,6 @@ function Login(props) {
                    props.showAlert("Login Sucessfull","Succes")
                }
                else{
-                console.log(json);
                 props.showAlert("Invalid credentials","danger")
                }
     }

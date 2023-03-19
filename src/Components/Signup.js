@@ -21,7 +21,6 @@ function SignUp(props) {
             props.showAlert("SignUp Sucessfull","Succes")
         }
         else {
-            console.log(data);
             props.showAlert("Invalid credentials","danger")
         }
     }
