@@ -1,38 +1,42 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import Logo from '../assets/logo.png'
 
 function Navbar() {
-    const handelDrawer = () => {
-        let drawer = document.getElementById('drawer')
-        drawer?.classList?.toggle('translate-x-full')
-        let fadeBg = document.getElementById('fadeBg')
-        fadeBg?.classList?.toggle('translate-x-[100vw]')
-    }
-
-    useEffect(() => {
-    }, [])
-
+    const [drawerState, setdrawerState] = useState(false)
     return (
-        <div className='flex flex-col'>
-            <div className='z-50'>
-            <div className='fixed w-full bg-[#6c63ff] flex justify-between items-center px-4 md:px-10 w-fulltext-xs md:text-xl xl:text-2xl '>
-                <Link className='p-1 sm:p-2 m-2 shadow-md shadow-gray-700 text-[#070351] hover:text-[#e1e3ff] focus:shadow-sm focus:translate-y-1' to="/tempelates">Resume Templates</Link>
-                {localStorage.getItem('token') ?
-                    <button type='button' onClick={handelDrawer} className='p-1 sm:p-2 m-2 shadow-md shadow-gray-700 text-[#070351] hover:text-[#e1e3ff] focus:shadow-sm focus:translate-y-1'><i className="fa-solid fa-bars"></i></button> :
-                    <Link className='shadow-md shadow-gray-700 p-1 sm:p-2 m-2 text-[#070351] hover:text-[#e1e3ff] focus:shadow-sm focus:translate-y-1' to="/auth/existing">Login / Signup</Link>}
-            </div>
-            </div>
-            <div className='z-40 flex mt-12 sm:mt-14 xl:mt-16'>
-                <div id='fadeBg' className='h-screen bg-[black] w-[50%] sm:w-[60%] lg:w-[70%] xl:w-[80%] transition-transform translate-x-[100vw] opacity-20 fixed' onClick={handelDrawer}>
+        <>
+            <div className='relative z-50'>
+                <div className='flex justify-between w-full px-10'>
+                    <img className='h-[13vh] lg:h-[22vh]' src={Logo} alt="dfvdfv" />
+                    {localStorage.getItem('token') ?
+                        <button type='button' className='text-4xl text-white' onClick={() => { setdrawerState(true) }}><i class="fa-solid fa-bars"></i></button> :
+                        <div class='flex items-center justify-center my-auto'>
+                            <div class="w-fit rounded-xl m-5 shadow-sm">
+                                <Link class="px-4 py-2 rounded-l-xl text-white m-0 bg-[#5535df] hover:bg-[#270f91] transition" to='/auth/existing'>Login</Link>
+                                <Link class="px-4 py-2 rounded-r-xl bg-neutral-50 hover:bg-neutral-200 transition" to='/auth/new'>Register</Link>
+                            </div>
+                        </div>}
                 </div>
-                <div id='drawer' className='text-xs md:text-xl xl:text-2xl flex flex-col fixed z-40 h-screen p-4 overflow-y-auto bg-[#d3d1ff] w-[50%] sm:w-[40%] lg:w-[30%] xl:w-[20%] right-0 transition-transform translate-x-full shadow-md'>
-                    <Link className='p-1 sm:p-2 m-2 bg-[#6c63ff] shadow-md shadow-gray-700 text-[#070351] hover:text-[#070351] focus:shadow-sm focus:translate-y-1' to='/profile'>Profile</Link>
-                    <Link className='p-1 sm:p-2 m-2 bg-[#6c63ff] shadow-md shadow-gray-700 text-[#070351] hover:text-[#070351] focus:shadow-sm focus:translate-y-1' to='/tempelates'>Create New Resume</Link>
-                    <Link className='p-1 sm:p-2 m-2 bg-[#6c63ff] shadow-md shadow-gray-700 text-[#070351] hover:text-[#070351] focus:shadow-sm focus:translate-y-1' to='/myresume' >My Resumes</Link>
-                    <Link className='p-1 sm:p-2 m-2 bg-[#6c63ff] shadow-md shadow-gray-700 text-[#070351] hover:text-[#070351] focus:shadow-sm focus:translate-y-1' to='/auth/existing' onClick={() => { if (localStorage.getItem('token')) { localStorage.removeItem('token'); handelDrawer() } }}>Logout</Link>
+                <div className={`flex h-screen top-0 absolute transition-transform ${drawerState ? "translate-x-0" : "translate-x-full"} duration-500`}>
+                    <div className='bg-black w-[50vw] lg:w-[80vw] opacity-40' onClick={() => { setdrawerState(false) }}></div>
+                    <div className='bg-white w-[50vw] lg:w-[20vw]'>
+                        <div className='mx-4 justify-end flex'>
+                            <button className='p-5 text-right text-2xl hover:text-blue-500' onClick={() => { setdrawerState(false) }}><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                        <hr className='mx-3 border-b-2 border-black' />
+                        <div className='flex flex-col p-2 gap-2 text-lg select-none'>
+                            <span className='cursor-pointer hover:bg-[#5535df] border-black hover:text-white hover:underline p-1'>Profile</span>
+                            <span className='cursor-pointer hover:bg-[#5535df] border-black hover:text-white hover:underline p-1'>Resume Templates</span>
+                            <span className='cursor-pointer hover:bg-[#5535df] border-black hover:text-white hover:underline p-1'>Create New Resume</span>
+                            <span className='cursor-pointer hover:bg-[#5535df] border-black hover:text-white hover:underline p-1'>My Resume</span>
+                            <Link className='cursor-pointer hover:bg-[#5535df] border-black hover:text-white hover:underline p-1' to='/auth/existing' onClick={() => { localStorage.removeItem('token') }}>Logout</Link>
+
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 

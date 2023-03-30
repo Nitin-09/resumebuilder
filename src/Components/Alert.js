@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Alert(props) {
-    alert=props.alert
+    // alert=props.alert
     const errorClass=alert?.type==='danger'?'bg-red-100 border-l-4 border-red-700 text-red-700 px-4 py-2':'bg-green-200 border-l-4 border-green-700 text-green-700 px-4 py-2'
   const capatilize = (word) => {
     if (word === "danger")

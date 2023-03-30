@@ -5,13 +5,13 @@ module.exports = {
   ],
   theme: {
     extend: {
-      fontFamily:{
-       'heading':['Pacifico', 'cursive'],
-       'navbar':['Oleo Script', 'cursive'],
+      backgroundImage: {
+        'pattern': "url('/public/banner-bg.png')",
       },
-      colors: {
-        'primary': '#d3d1ff',
-        'secondary': '#6c63ff',
+      fontFamily:{
+       'pacifico':['Pacifico', 'cursive'],
+       'oleo':['Oleo Script', 'cursive'],
+       'edu': ['Edu NSW ACT Foundation', 'cursive']
       },
       animation: {
         fade: 'fadeOut 1s ease-out',

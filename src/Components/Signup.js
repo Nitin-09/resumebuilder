@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom"
 
@@ -18,10 +18,10 @@ function SignUp(props) {
         if (json.Status) {
             localStorage.setItem('token', json.authtoken)
             navigate('/tempelates')
-            props.showAlert("SignUp Sucessfull","Succes")
+            props.showAlert("SignUp Sucessfull", "Succes")
         }
         else {
-            props.showAlert("Invalid credentials","danger")
+            props.showAlert("Invalid credentials", "danger")
         }
     }
     const [Otp, setOtp] = useState(0)
@@ -32,28 +32,30 @@ function SignUp(props) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({email: watch("username") })
+                body: JSON.stringify({ email: watch("username") })
             });
             const json = await response.json()
             if (json.Status) {
                 setOtp(json.OTP);
-                props.showAlert("OTP sent sucessfully","Succes")
+                props.showAlert("OTP sent sucessfully", "Succes")
             }
             else {
-                response.status===400?props.showAlert("Email address already exist","danger"):props.showAlert("Some error occurred.","danger")
+                response.status === 400 ? props.showAlert("Email address already exist", "danger") : props.showAlert("Some error occurred.", "danger")
             }
         }
-        else{
-            props.showAlert("Please enter a valid email address","danger")
+        else {
+            props.showAlert("Please enter a valid email address", "danger")
         }
     }
     return (
-        <form className='grid grid-col-2 w-full gap-1 mr-10 px-5 md:px-10' onSubmit={handleSubmit(onSubmit)}>
-            <span className='col-span-2 w-full relative mb-3 block'>
+        <form className='bg-white shadow rounded w-full p-7' onSubmit={handleSubmit(onSubmit)}>
+            <p tabindex="0" class="focus:outline-none text-2xl font-extrabold leading-6 text-gray-800">Signup to your account</p>
+            <span className='text-sm font-medium leading-none text-gray-800'>
+                < label htmlFor="name" className="text-sm font-medium leading-none text-gray-800" >Name</label>
                 <input
                     id="name"
                     type="text"
-                    className="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-xl border-black focus:outline-none focus:ring-0 focus:border-blue-600 peer appearance-none m-1 autofill:m-1"
+                    className="bg-gray-200 border rounded  text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"
                     {...register("name",
                         {
                             required: "Name is a required field",
@@ -63,14 +65,15 @@ function SignUp(props) {
                                 message: "Name must be at least 3 characters long"
                             },
                         },)} />
-                < label htmlFor="name" className="mx-6 px-1 bg-[#c4c1fe] block peer-focus:font-medium absolute text-sm text-gray-800 duration-300 transform -translate-y-6 scale-100 top-4 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6" >Name</label>
+
                 {errors["name"] && <span className="inline-block w-full text-red-600 text-xs ml-1">{errors["name"].message}</span>}
             </span>
             <span className='col-span-2 w-full relative mb-3 inline-block'>
+                < label htmlFor="username" className="text-sm font-medium leading-none text-gray-800" >Email</label>
                 <input
                     id="username"
                     type="email"
-                    className="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-xl border-black focus:outline-none focus:ring-0 focus:border-blue-600 peer appearance-none m-1 autofill:m-1"
+                    className="bg-gray-200 border rounded  text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"
                     {...register("username",
                         {
                             required: "Please enter a valid username",
@@ -80,15 +83,16 @@ function SignUp(props) {
                                 message: "Please enter a valid email address"
                             },
                         },)} />
-                < label htmlFor="username" className="mx-6 px-1 bg-[#c4c1fe] block peer-focus:font-medium absolute text-sm text-gray-800 duration-300 transform -translate-y-6 scale-100 top-4 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6" >Email</label>
+
                 {errors["username"] && <span className="inline-block w-full text-red-600 text-xs ml-1">{errors["username"].message}</span>}
             </span>
             <span className='col-span-2 w-full relative mb-3 inline-block'>
-                <div className=''>
+                < label htmlFor="otp" className="text-sm font-medium leading-none text-gray-800" >OTP</label>
+                <div className='relative flex items-center justify-center'>
                     <input
                         id="otp"
                         type="number"
-                        className='border-2 border-r-0 border-black bg-transparent w-1/2 py-2 px-2 focus:outline-none focus:ring-0 rounded-tl-xl rounded-bl-xl'
+                        className='bg-gray-200 border rounded  text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2'
                         {...register("otp",
                             {
                                 required: "OTP cannot be blank",
@@ -98,24 +102,27 @@ function SignUp(props) {
                                     message: "Please enter a valid six digit OTP"
                                 },
                                 validate: (val) => {
-                                    if (Otp!= val) {
+                                    if (Otp != val) {
                                         return "OTP invalid!";
                                     }
                                 },
-                                
+
                             },)}
                     />
-                    <input className='hover:bg-blue-600 font-bold cursor-pointer text-white border-2 border-black bg-black w-1/2 py-2 px-4 focus:outline-none focus:ring-0 rounded-tr-xl rounded-br-lg' type='button' onClick={sendOtp} value="Get OTP" />
+                    <div class="absolute right-0 mt-2 cursor-pointer">
+                    <input className='hover:bg-blue-600 font-bold cursor-pointer text-white border-2 border-black bg-black py-2 px-4 focus:outline-none focus:ring-0 rounded-tr-xl rounded-br-lg w-full' type='button' onClick={sendOtp} value="Get OTP" />
+                    </div>
                 </div>
 
-                < label htmlFor="otp" className="mx-6 px-1 bg-[#c4c1fe] block peer-focus:font-medium absolute text-sm text-gray-800 duration-300 transform -translate-y-6 scale-100 top-4 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6" >OTP</label>
+
                 {errors["otp"] && <span className="inline-block w-full text-red-600 text-xs ml-1">{errors["otp"].message}</span>}
             </span>
             <span className='col-span-2 w-full relative mb-3 inline-block'>
+                < label htmlFor="username" className="text-sm font-medium leading-none text-gray-800" >Password</label>
                 <input
                     id="password"
                     type={watch("showPassword") ? "text" : "password"}
-                    className="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-xl border-black focus:outline-none focus:ring-0 focus:border-blue-600 peer appearance-none m-1 autofill:m-1"
+                    className="bg-gray-200 border rounded  text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"
                     {...register("password",
                         {
                             required: "Please enter a valid passowrd",
@@ -129,14 +136,15 @@ function SignUp(props) {
                                 message: `Password must contain at least one letter, one number and must be minimum 8 characters long`
                             },
                         },)} />
-                < label htmlFor="username" className="mx-6 px-1 bg-[#c4c1fe] block peer-focus:font-medium absolute text-sm text-gray-800 duration-300 transform -translate-y-6 scale-100 top-4 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6" >Password</label>
+
                 {errors["password"] && <span className="inline-block w-full text-red-600 text-xs ml-1">{errors["password"].message}</span>}
             </span>
             <span className='col-span-2 w-full relative mb-3 inline-block'>
+                < label htmlFor="username" className="text-sm font-medium leading-none text-gray-800" >Confirm Password</label>
                 <input
                     id="confirmPassword"
                     type={watch("showPassword") ? "text" : "password"}
-                    className="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-xl border-black focus:outline-none focus:ring-0 focus:border-blue-600 peer appearance-none m-1 autofill:m-1"
+                    className="bg-gray-200 border rounded  text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"
                     {...register("confirmPassword",
                         {
                             required: "Password cannot be blank",
@@ -146,7 +154,7 @@ function SignUp(props) {
                                 }
                             },
                         },)} />
-                < label htmlFor="username" className="mx-6 px-1 bg-[#c4c1fe] block peer-focus:font-medium absolute text-sm text-gray-800 duration-300 transform -translate-y-6 scale-100 top-4 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6" >Confirm Password</label>
+
                 {errors["confirmPassword"] && <span className="inline-block w-full text-red-600 text-xs ml-1">{errors["confirmPassword"].message}</span>}
             </span>
             <span className='flex justify-start items-center col-span-2 w-full mb-3'>
@@ -157,8 +165,18 @@ function SignUp(props) {
                     {...register("showPassword",)} />
                 <label htmlFor="showPassword" className='text-sm text-gray-800 peer-hover:underline hover:underline hover:text-blue-900 cursor-pointer'>Show Password</label>
             </span>
-            <input className="ml-1 block disabled:cursor-not-allowed cursor-pointer bg-black hover:bg-blue-600 disabled:hover:bg-black text-white font-bold py-2 px-4 rounded mx-auto" type="submit" value="Signup" />
-            <Link className="ml-1 block disabled:cursor-not-allowed cursor-pointer bg-black hover:bg-blue-600 disabled:hover:bg-black text-white font-bold py-2 px-4 rounded mx-auto" to='/auth/existing'>Login</Link>
+            <div class="mt-8">
+                <input className="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 text-sm font-semibold leading-none text-white focus:outline-none bg-indigo-700 border rounded hover:bg-indigo-600 py-4 w-full" type="submit" value="Login" />
+            </div>
+            <div class="w-full flex items-center justify-between py-5">
+                <hr class="w-full bg-gray-400" />
+                <p class="text-base font-medium leading-4 px-2.5 text-gray-400">OR</p>
+                <hr class="w-full bg-gray-400  " />
+            </div>
+            <button aria-label="Continue with google" role="button" class="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-700 flex items-center w-full">
+                <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/sign_in-svg2.svg" alt="google"/>
+                    <p class="text-base font-medium ml-4 text-gray-700">Continue with Google</p>
+            </button>
         </form>
     )
 }

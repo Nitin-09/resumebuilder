@@ -1,19 +1,20 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Home from "./Components/Home";
-import Body from "./Components/Body";
+// import Body from "./Components/Body";
 import ResumeState from "./context/Resume/ResumeState.js";
 import Auth from "./Components/Auth";
 import Navbar from "./Components/Navbar";
 import Alert from "./Components/Alert"
-import Profile from "./Components/Profiles"
+import Footer from "./Components/Footer"
+// import Profile from "./Components/Profiles"
 import { useState } from "react"
-import MyResume from "./Components/MyResume";
+// import MyResume from "./Components/MyResume";
 function App() {
   const [alert, setalert] = useState(null)
-  const showAlert=(message,type)=>{
+  const showAlert = (message, type) => {
     setalert({
-      msg:message,
-      type:type
+      msg: message,
+      type: type
     })
     setTimeout(() => {
       setalert(null)
@@ -21,22 +22,26 @@ function App() {
 
   }
   return (
-    // Container div
     <ResumeState>
       <Router>
-        <Navbar></Navbar>
-        <Alert alert={alert}></Alert>
-        <div className="flex flex-col overflow-hidden select-none">
-          <Routes>
-            <Route path='/auth/:user' element={<Auth showAlert={showAlert}/>} />
-            <Route path='/tempelates' element={<Home/>} />
-            <Route path='/newresume/:tid/:rid' element={<Body showAlert={showAlert}/>} />
-            <Route path='/profile' element={<Profile showAlert={showAlert}/>} />
-            <Route path='/myresume' element={<MyResume showAlert={showAlert}/>} />
-          </Routes>
+        <div className="overflow-x-hidden">
+          <div className="bg-pattern bg-contain bg-no-repeat lg:bg-cover h-screen">
+            <Navbar></Navbar>
+            <Alert alert={alert}></Alert>
+            <Routes>
+              <Route path='/' element={<Home showAlert={showAlert} />} />
+              <Route path='/auth/:user' element={<Auth showAlert={showAlert} />} />
+              {/* <Route path='/tempelates' element={<Home />} /> */}
+              {/* <Route path='/newresume/:tid/:rid' element={<Body showAlert={showAlert} />} /> */}
+              {/* <Route path='/profile' element={<Profile showAlert={showAlert} />} /> */}
+              {/* <Route path='/myresume' element={<MyResume showAlert={showAlert} />} /> */}
+            </Routes>
+            <Footer></Footer>
+          </div>
         </div>
       </Router>
-    </ResumeState>
+
+    </ResumeState >
   );
 }
 
