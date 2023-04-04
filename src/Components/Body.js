@@ -1,63 +1,40 @@
-import React, { useState, useEffect, useRef, useContext } from 'react'
-import ReactToPrint from 'react-to-print'
-import Section from './Section'
+import React, { useState, useRef } from 'react'
 import Forms from './Forms'
+import Section from './Section'
 import Resume from './Tempelates/Resume'
-import { exportComponentAsJPEG } from 'react-component-export-image';
-import { useParams } from 'react-router-dom'
-import ResumeContext from "../context/Resume/ResumeContext.js";
+function Body() {
+    const ResumeRef = useRef()
+    const [activeKey, setActiveKey] = useState("profile")
 
-function Body(props) {
-  const context = useContext(ResumeContext)
-  const { fetchResume } = context
-  const { tid, rid } = useParams();
-  // Reference of Resume Component
-  const ResumeRef = useRef()
-  const [activeKey, setActiveKey] = useState("profile")
-
-  const [Information, setInformation] = useState({
-    "profile": [{ detail: {} }],
-    "education": [{ details: [] }],
-    "workExperience": [{ details: [] }],
-    "project": [{ details: [] }],
-    "skills": [{ details: [] }],
-    "summary": [{ detail: {} }],
-    "others": [{ details: [] }]
-  })
-  useEffect(() => {
-      fetchResume(rid, setInformation)
-  }, [])
-
-
-  return (
-    <div className='flex flex-col gap-4 pt-5 p-4 md:p-7 xl:px-16 items-center bg-[#d4d4ff] w-screen h-fit pb-32'>
-      <p className='text-center text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-semibold'>Resume Builder</p>
-      <div className='flex flex-col w-full gap-3 justify-center items-center'>
-        <div className='flex flex-col w-full md:flex-row h-fit'>
-          <Section activeKey={activeKey} setActiveKey={setActiveKey}></Section>
-          <Forms ResumeId={rid} Information={Information} setInformation={setInformation} activeKey={activeKey} showAlert={props.showAlert}></Forms>
-        </div>
-        <div className='flex flex-col justify-center items-start gap-0.5'>
-          <ReactToPrint
-            trigger={() => {
-              return (<button className="flex items-center justify-center gap-3 shadow-md shadow-gray-700 focus:shadow-sm focus:translate-y-1 p-2 col-span-6 disabled:cursor-not-allowed cursor-pointer bg-black hover:bg-blue-600 disabled:hover:bg-black text-white font-bold py-2 px-4 rounded mx-auto w-full ">
-                <i className="fa-solid fa-print"></i>
-                <span>Print</span>
-              </button>)
-            }}
-            content={() => ResumeRef.current}>
-          </ReactToPrint>
-          <button onClick={() => exportComponentAsJPEG(ResumeRef)} className="flex items-center justify-center gap-3 shadow-md shadow-gray-700 focus:shadow-sm focus:translate-y-1 p-2 col-span-6 disabled:cursor-not-allowed cursor-pointer bg-black hover:bg-blue-600 disabled:hover:bg-black text-white font-bold py-2 px-4 rounded mx-auto w-full ">
-            <i className="fa-solid fa-image"></i>
-            <span>Save as JPEG</span>
-          </button>
-          <div ref={ResumeRef} className='w-[21cm] h-[29.7cm]'>
-            <Resume Information={Information} tid={tid}></Resume>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
+    const [Information, setInformation] = useState({
+        "profile": [{ detail: {} }],
+        "education": [{ details: [] }],
+        "workExperience": [{ details: [] }],
+        "project": [{ details: [] }],
+        "skills": [{ details: [] }],
+        "summary": [{ detail: {} }],
+        "others": [{ details: [] }]
+    })
+    return (
+        <div className='bg-form bg-no-repeat bg-cover'>
+            <div class="p-4">
+                <Section activeKey={activeKey} setActiveKey={setActiveKey}></Section>
+            </div>
+            <div className='mt-8 p-4 h-full'>
+                <Forms Information={Information} setInformation={setInformation} activeKey={activeKey}></Forms>
+            </div>
+            <div class="fixed hidden inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-[200]" id="my-modal" >
+                <div class="relative top-0 mx-auto p-3 border w-fit shadow-lg rounded-md bg-white">
+                    <div className='justify-end flex'>
+                        <button className='p-2 text-right text-2xl hover:text-blue-500' onClick={()=>document.getElementById("my-modal").classList.add('hidden')}><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                    <div ref={ResumeRef} className='w-[10.5cm] h-[17cm] lg:w-[21cm] lg:h-[29.7cm] border-2 border-black'>
+                        <Resume tid={"1-6AQBNc2pmoNbf5YmvveNJhxCCPm5gkm"}></Resume>
+                    </div>
+                </div>
+            </div>
+        </div >
+    )
 }
 
 export default Body

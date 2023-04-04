@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         'pattern': "url('/public/banner-bg.png')",
+        'form': "url('/public/formBg.jpg')",
       },
       fontFamily:{
        'pacifico':['Pacifico', 'cursive'],

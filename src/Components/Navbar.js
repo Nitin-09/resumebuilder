@@ -4,17 +4,18 @@ import Logo from '../assets/logo.png'
 
 function Navbar() {
     const [drawerState, setdrawerState] = useState(false)
+    const [active, setactive] = useState("login")
     return (
         <>
             <div className='relative z-50'>
-                <div className='flex justify-between w-full px-10'>
-                    <img className='h-[13vh] lg:h-[22vh]' src={Logo} alt="dfvdfv" />
+                <div className='flex justify-between w-full lg:px-10'>
+                    <img className='h-[13vh] lg:h-[22vh]' src={Logo} alt="" />
                     {localStorage.getItem('token') ?
-                        <button type='button' className='text-4xl text-white' onClick={() => { setdrawerState(true) }}><i class="fa-solid fa-bars"></i></button> :
+                        <button type='button' className='text-4xl text-white' onClick={() => { setdrawerState(true) }}><i className="fa-solid fa-bars"></i></button> :
                         <div class='flex items-center justify-center my-auto'>
                             <div class="w-fit rounded-xl m-5 shadow-sm">
-                                <Link class="px-4 py-2 rounded-l-xl text-white m-0 bg-[#5535df] hover:bg-[#270f91] transition" to='/auth/existing'>Login</Link>
-                                <Link class="px-4 py-2 rounded-r-xl bg-neutral-50 hover:bg-neutral-200 transition" to='/auth/new'>Register</Link>
+                                <Link class={`px-4 py-2 rounded-l-xl m-0 ${active==='login'?"bg-[#5535df] hover:bg-[#270f91]  text-white":"bg-neutral-50 hover:bg-neutral-200 text-black"} transition`} to='/auth/existing' onClick={() => { setactive("login") }}>Login</Link>
+                                <Link class={`px-4 py-2 rounded-r-xl ${active==='register'?"bg-[#5535df] hover:bg-[#270f91] text-white":"bg-neutral-50 hover:bg-neutral-200 text-black"} transition`} to='/auth/new' onClick={() => { setactive("register") }}>Register</Link>
                             </div>
                         </div>}
                 </div>
@@ -27,7 +28,7 @@ function Navbar() {
                         <hr className='mx-3 border-b-2 border-black' />
                         <div className='flex flex-col p-2 gap-2 text-lg select-none'>
                             <span className='cursor-pointer hover:bg-[#5535df] border-black hover:text-white hover:underline p-1'>Profile</span>
-                            <span className='cursor-pointer hover:bg-[#5535df] border-black hover:text-white hover:underline p-1'>Resume Templates</span>
+                            <Link to='/templates' className='cursor-pointer hover:bg-[#5535df] border-black hover:text-white hover:underline p-1'>Resume Templates</Link>
                             <span className='cursor-pointer hover:bg-[#5535df] border-black hover:text-white hover:underline p-1'>Create New Resume</span>
                             <span className='cursor-pointer hover:bg-[#5535df] border-black hover:text-white hover:underline p-1'>My Resume</span>
                             <Link className='cursor-pointer hover:bg-[#5535df] border-black hover:text-white hover:underline p-1' to='/auth/existing' onClick={() => { localStorage.removeItem('token') }}>Logout</Link>

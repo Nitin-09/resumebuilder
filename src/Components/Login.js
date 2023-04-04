@@ -18,7 +18,7 @@ function Login(props) {
         const json = await response.json()
         if (json.Status) {
             localStorage.setItem('token', json.authtoken)
-            navigate('/tempelates')
+            navigate('/')
             props.showAlert("Login Sucessfull", "Succes")
         }
         else {
@@ -71,7 +71,7 @@ function Login(props) {
                 <p class="text-base font-medium leading-4 px-2.5 text-gray-400">OR</p>
                 <hr class="w-full bg-gray-400  " />
             </div>
-            <button aria-label="Continue with google" role="button" class="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-700 flex items-center w-full">
+            <button class="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-700 flex items-center w-full">
                 <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/sign_in-svg2.svg" alt="google"/>
                     <p class="text-base font-medium ml-4 text-gray-700">Continue with Google</p>
             </button>

@@ -15,7 +15,7 @@ function Profiles() {
             {
                 ResumeData.map((element, index) => {
                     return (
-                        <div key={index} class="flex">
+                        <div key={index} classname="flex">
 
                             <div className="w-[20vw]">
                                 <div className="bg-white shadow-xl rounded-lg py-3 h-[60vh]">

@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom"
 
 function SignUp(props) {
+    const [showPassword, setshowPassword] = useState(false)
+    const [showConfirmPassword, setshowConfirmPassword] = useState(false)
     let navigate = useNavigate()
     const host = "http://localhost:5000"
     const { register, handleSubmit, watch, formState: { errors } } = useForm({ mode: "all" });
@@ -50,7 +52,7 @@ function SignUp(props) {
     return (
         <form className='bg-white shadow rounded w-full p-7' onSubmit={handleSubmit(onSubmit)}>
             <p tabindex="0" class="focus:outline-none text-2xl font-extrabold leading-6 text-gray-800">Signup to your account</p>
-            <span className='text-sm font-medium leading-none text-gray-800'>
+            <span className=''>
                 < label htmlFor="name" className="text-sm font-medium leading-none text-gray-800" >Name</label>
                 <input
                     id="name"
@@ -68,7 +70,7 @@ function SignUp(props) {
 
                 {errors["name"] && <span className="inline-block w-full text-red-600 text-xs ml-1">{errors["name"].message}</span>}
             </span>
-            <span className='col-span-2 w-full relative mb-3 inline-block'>
+            <span className=''>
                 < label htmlFor="username" className="text-sm font-medium leading-none text-gray-800" >Email</label>
                 <input
                     id="username"
@@ -86,7 +88,7 @@ function SignUp(props) {
 
                 {errors["username"] && <span className="inline-block w-full text-red-600 text-xs ml-1">{errors["username"].message}</span>}
             </span>
-            <span className='col-span-2 w-full relative mb-3 inline-block'>
+            <span className=''>
                 < label htmlFor="otp" className="text-sm font-medium leading-none text-gray-800" >OTP</label>
                 <div className='relative flex items-center justify-center'>
                     <input
@@ -110,63 +112,56 @@ function SignUp(props) {
                             },)}
                     />
                     <div class="absolute right-0 mt-2 cursor-pointer">
-                    <input className='hover:bg-blue-600 font-bold cursor-pointer text-white border-2 border-black bg-black py-2 px-4 focus:outline-none focus:ring-0 rounded-tr-xl rounded-br-lg w-full' type='button' onClick={sendOtp} value="Get OTP" />
+                        <input className='hover:bg-blue-600 font-bold cursor-pointer text-white border-2 border-black bg-black py-2 px-4 focus:outline-none focus:ring-0 rounded-tr-xl rounded-br-lg w-full' type='button' onClick={sendOtp} value="Get OTP" />
                     </div>
                 </div>
 
 
                 {errors["otp"] && <span className="inline-block w-full text-red-600 text-xs ml-1">{errors["otp"].message}</span>}
             </span>
-            <span className='col-span-2 w-full relative mb-3 inline-block'>
-                < label htmlFor="username" className="text-sm font-medium leading-none text-gray-800" >Password</label>
-                <input
-                    id="password"
-                    type={watch("showPassword") ? "text" : "password"}
-                    className="bg-gray-200 border rounded  text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"
-                    {...register("password",
-                        {
-                            required: "Please enter a valid passowrd",
-                            minLength: {
-                                value: 8,
-                                message: 'Password must be at least 8 characters long'
-                            },
-                            pattern:
+            <span className='w-full'>
+                <label htmlFor="password" className="text-sm font-medium leading-none text-gray-800" >Password</label>
+                <div className='relative flex items-center justify-center'>
+                    <input
+                        id="password"
+                        type={showPassword ? "text" : "password"}
+                        className="bg-gray-200 border rounded  text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"
+                        {...register("password",
                             {
-                                value: new RegExp("(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}"),
-                                message: `Password must contain at least one letter, one number and must be minimum 8 characters long`
-                            },
-                        },)} />
+                                required: "Please enter a valid passowrd",
+                            },)} />
+                    <div class="absolute right-0 mt-2 mr-3 cursor-pointer">
+                        <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/sign_in-svg5.svg" alt="viewport" onClick={() => { showPassword ? setshowPassword(false) : setshowPassword(true) }} />
+                    </div>
+                </div>
 
                 {errors["password"] && <span className="inline-block w-full text-red-600 text-xs ml-1">{errors["password"].message}</span>}
             </span>
-            <span className='col-span-2 w-full relative mb-3 inline-block'>
-                < label htmlFor="username" className="text-sm font-medium leading-none text-gray-800" >Confirm Password</label>
-                <input
-                    id="confirmPassword"
-                    type={watch("showPassword") ? "text" : "password"}
-                    className="bg-gray-200 border rounded  text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"
-                    {...register("confirmPassword",
-                        {
-                            required: "Password cannot be blank",
-                            validate: (val) => {
-                                if (watch('password') != val) {
-                                    return "Your passwords do no match";
-                                }
-                            },
-                        },)} />
+            <span className='w-full'>
+                < label htmlFor="confirmPassword" className="text-sm font-medium leading-none text-gray-800" >Confirm Password</label>
+                <div className='relative flex items-center justify-center'>
+                    <input
+                        id="confirmPassword"
+                        type={showConfirmPassword? "text" : "password"}
+                        className="bg-gray-200 border rounded  text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"
+                        {...register("confirmPassword",
+                            {
+                                required: "Password cannot be blank",
+                                validate: (val) => {
+                                    if (watch('password') != val) {
+                                        return "Your passwords do no match";
+                                    }
+                                },
+                            },)} />
+                    <div class="absolute right-0 mt-2 mr-3 cursor-pointer">
+                        <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/sign_in-svg5.svg" alt="viewport" onClick={() => { showConfirmPassword ? setshowConfirmPassword(false) : setshowConfirmPassword(true) }} />
+                    </div>
+                </div>
 
                 {errors["confirmPassword"] && <span className="inline-block w-full text-red-600 text-xs ml-1">{errors["confirmPassword"].message}</span>}
             </span>
-            <span className='flex justify-start items-center col-span-2 w-full mb-3'>
-                <input
-                    id="showPassword"
-                    type="checkbox"
-                    className="cursor-pointer peer mx-2 bg-transparent"
-                    {...register("showPassword",)} />
-                <label htmlFor="showPassword" className='text-sm text-gray-800 peer-hover:underline hover:underline hover:text-blue-900 cursor-pointer'>Show Password</label>
-            </span>
             <div class="mt-8">
-                <input className="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 text-sm font-semibold leading-none text-white focus:outline-none bg-indigo-700 border rounded hover:bg-indigo-600 py-4 w-full" type="submit" value="Login" />
+                <input className="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 text-sm font-semibold leading-none text-white focus:outline-none bg-indigo-700 border rounded hover:bg-indigo-600 py-4 w-full" type="submit" value="Create my account" />
             </div>
             <div class="w-full flex items-center justify-between py-5">
                 <hr class="w-full bg-gray-400" />
@@ -174,8 +169,8 @@ function SignUp(props) {
                 <hr class="w-full bg-gray-400  " />
             </div>
             <button aria-label="Continue with google" role="button" class="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-700 flex items-center w-full">
-                <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/sign_in-svg2.svg" alt="google"/>
-                    <p class="text-base font-medium ml-4 text-gray-700">Continue with Google</p>
+                <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/sign_in-svg2.svg" alt="google" />
+                <p class="text-base font-medium ml-4 text-gray-700">Continue with Google</p>
             </button>
         </form>
     )

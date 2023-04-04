@@ -189,7 +189,7 @@ const config={
                     "sequence": 4,
                     "name": "schoolEndDate",
                     "label": "End Date",
-                    "value":(new Date).getFullYear() + "-" + (((new Date).getMonth() < 10) ? "0" + ((new Date).getMonth() + 1) : (new Date).getMonth() + 1),
+                    "value":(new Date()).getFullYear() + "-" + (((new Date()).getMonth() < 10) ? "0" + ((new Date()).getMonth() + 1) : (new Date()).getMonth() + 1),
                     "type": "month",
                     "required": "Please Select course end date",
                     "span": 2
@@ -305,7 +305,7 @@ const config={
                     "sequence": 4,
                     "name": "workEndDate",
                     "label": "End Date",
-                    "value":(new Date).getFullYear() + "-" + (((new Date).getMonth() < 10) ? "0" + ((new Date).getMonth() + 1) : (new Date).getMonth() + 1),
+                    "value":(new Date()).getFullYear() + "-" + (((new Date()).getMonth() < 10) ? "0" + ((new Date()).getMonth() + 1) : (new Date()).getMonth() + 1),
                     "type": "month",
                     "required": "Please Select work end date",
                     "span": 2
@@ -389,7 +389,7 @@ const config={
                     "type": "url",
                     "required": "Project Link cannot be empty",
                     "pattern": {
-                        "value": "(https:\/\/|http:\/\/|www.)[\\w\/.\\D]+",
+                        "value": "(https://|http://|www.)[\\w/.\\D]+",
                         "message": "Please Enter a valid URL"
                     },
                     "span": 6

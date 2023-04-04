@@ -62,6 +62,7 @@ export default function Forms(props) {
         Config.education[0]?.input[5]?.condition(watch("checkEducation"))
         Config.workExperience[0]?.input[5]?.condition(watch("checkWork"))
         Config.skills[0]?.input[3]?.condition(watch("checkBar"))
+        // eslint-disable-next-line
     }, [watch("checkEducation"), watch("checkWork"), watch("checkBar"), activeKey])
 
     useEffect(() => {
@@ -77,7 +78,7 @@ export default function Forms(props) {
                 setValue(element.name, value)
             }
         })
-
+        // eslint-disable-next-line
     }, [activeKey, Information, activeChipIndex])
 
     useEffect(() => {
@@ -87,7 +88,7 @@ export default function Forms(props) {
 
 
     return (
-        <div className="items-center basis-9/12 shadow-xl pt-1 pb-3 border bg-white border-slate-100 ">
+        <div className="items-center basis-9/12 pt-1 pb-3 h-fit">
             <form id="data" className="grid grid-cols-6 gap-2 w-full h-fit md:mt-10 px-3 md:px-10" onSubmit={handleSubmit(onSubmit)}>
                 <div className='col-span-6 flex flex-wrap items-center gap-2 md:gap-5 mb-4'>
                     {Information[activeKey][0]?.details?.map((item, index) => (
@@ -104,8 +105,8 @@ export default function Forms(props) {
 
                 {
                     Config[activeKey][0].input.map((element) => {
-                        const InputClasses = "block py-2.5 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer appearance-none m-1 autofill:m-1"
-                        const LabelClasses = "text-xs block peer-focus:font-medium absolute md:text-sm text-gray-500 duration-300 transform -translate-y-6 scale-100 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        const InputClasses = "block py-2.5 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer appearance-none m-1 autofill:m-1"
+                        const LabelClasses = "text-xs block peer-focus:font-medium absolute md:text-sm text-black duration-300 transform -translate-y-6 scale-100 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                         let divc = ""
                         if (element.span === 6)
                             divc = "relative mb-6 inline-block col-span-6"
@@ -161,7 +162,10 @@ export default function Forms(props) {
                     }
                     )
                 }
-                <input className="justify-self-end place-self-end shadow-md shadow-gray-700 focus:shadow-sm focus:translate-y-1 p-2 m-2 col-span-6 disabled:cursor-not-allowed cursor-pointer bg-black hover:bg-blue-600 disabled:hover:bg-black text-white font-bold py-2 px-4 rounded mx-auto" type="submit" />
+                <div className="flex justify-center items-center col-span-6">
+                    <input className="shadow-md shadow-gray-700 focus:shadow-sm focus:translate-y-1 p-2 m-2 disabled:cursor-not-allowed cursor-pointer bg-black hover:bg-blue-600 disabled:hover:bg-black text-white font-bold py-2 px-4 rounded" type="submit" />
+                    <input className=" shadow-md shadow-gray-700 focus:shadow-sm focus:translate-y-1 p-2 m-2 disabled:cursor-not-allowed cursor-pointer bg-black hover:bg-blue-600 disabled:hover:bg-black text-white font-bold py-2 px-4 rounded" type="button" onClick={() => { document.getElementById('my-modal').classList.remove('hidden') }} value='View Resume' />
+                </div>
             </form >
         </div >
     );
