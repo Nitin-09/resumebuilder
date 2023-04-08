@@ -12,10 +12,10 @@ function Navbar() {
                     <img className='h-[13vh] lg:h-[22vh]' src={Logo} alt="" />
                     {localStorage.getItem('token') ?
                         <button type='button' className='text-4xl text-white' onClick={() => { setdrawerState(true) }}><i className="fa-solid fa-bars"></i></button> :
-                        <div class='flex items-center justify-center my-auto'>
-                            <div class="w-fit rounded-xl m-5 shadow-sm">
-                                <Link class={`px-4 py-2 rounded-l-xl m-0 ${active==='login'?"bg-[#5535df] hover:bg-[#270f91]  text-white":"bg-neutral-50 hover:bg-neutral-200 text-black"} transition`} to='/auth/existing' onClick={() => { setactive("login") }}>Login</Link>
-                                <Link class={`px-4 py-2 rounded-r-xl ${active==='register'?"bg-[#5535df] hover:bg-[#270f91] text-white":"bg-neutral-50 hover:bg-neutral-200 text-black"} transition`} to='/auth/new' onClick={() => { setactive("register") }}>Register</Link>
+                        <div className='flex items-center justify-center my-auto'>
+                            <div className="w-fit rounded-xl m-5 shadow-sm">
+                                <Link className={`px-4 py-2 rounded-l-xl m-0 ${active==='login'?"bg-[#5535df] hover:bg-[#270f91]  text-white":"bg-neutral-50 hover:bg-neutral-200 text-black"} transition`} to='/auth/existing' onClick={() => { setactive("login") }}>Login</Link>
+                                <Link className={`px-4 py-2 rounded-r-xl ${active==='register'?"bg-[#5535df] hover:bg-[#270f91] text-white":"bg-neutral-50 hover:bg-neutral-200 text-black"} transition`} to='/auth/new' onClick={() => { setactive("register") }}>Register</Link>
                             </div>
                         </div>}
                 </div>
@@ -23,7 +23,7 @@ function Navbar() {
                     <div className='bg-black w-[50vw] lg:w-[80vw] opacity-40' onClick={() => { setdrawerState(false) }}></div>
                     <div className='bg-white w-[50vw] lg:w-[20vw]'>
                         <div className='mx-4 justify-end flex'>
-                            <button className='p-5 text-right text-2xl hover:text-blue-500' onClick={() => { setdrawerState(false) }}><i class="fa-solid fa-xmark"></i></button>
+                            <button className='p-5 text-right text-2xl hover:text-blue-500' onClick={() => { setdrawerState(false) }}><i className="fa-solid fa-xmark"></i></button>
                         </div>
                         <hr className='mx-3 border-b-2 border-black' />
                         <div className='flex flex-col p-2 gap-2 text-lg select-none'>

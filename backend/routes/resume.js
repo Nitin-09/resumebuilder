@@ -8,7 +8,7 @@ router.post('/createresume', fetchuser,
     async (req, res) => {
         // const { profile, education, workExperience, project, skills, others } = req.body
         try {
-            const resume = new Resume({ user: req.user.id,tempelateId:req.body.tid, profile: {}, education: [{ "details": [] }], workExperience: [{ "details": [] }], project: [{ "details": [] }], skills: [{ "details": [] }], summary: [{}], others: [{ "details": [] }] })
+            const resume = new Resume({ user: req.user.id, tempelateId: req.body.tid, profile: {}, education: [{ "details": [] }], workExperience: [{ "details": [] }], project: [{ "details": [] }], skills: [{ "details": [] }], summary: [{}], others: [{ "details": [] }] })
             const resumeData = await resume.save()
             res.json(resumeData)
 
@@ -43,16 +43,16 @@ router.post('/fetchAllResume', fetchuser, async (req, res) => {
 })
 
 router.post('/submitdetails/:id', fetchuser,
-    (req, res) => {
+    async (req, res) => {
         try {
             let resume = { profile: req.body.profile, education: [{ "details": req.body.education[0].details }], workExperience: [{ "details": req.body.workExperience[0].details }], project: [{ "details": req.body.project[0].details }], skills: [{ "details": req.body.skills[0].details }], summary: req.body.summary, others: [{ "details": req.body.others[0].details }] }
-            console.log(req.body.education.details)
-            Resume.findByIdAndUpdate(req.params.id, { $set: resume }, (err, doc) => {
+            await Resume.findByIdAndUpdate(req.params.id, { $set: resume },{new: true}, async (err, doc) => {
                 if (err) {
                     console.error(err.message)
                     res.status(500).send(err.message);
                 }
                 else {
+                    console.log(doc)
                     res.status(200).json(doc)
                 }
             })

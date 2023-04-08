@@ -51,7 +51,7 @@ function SignUp(props) {
     }
     return (
         <form className='bg-white shadow rounded w-full p-7' onSubmit={handleSubmit(onSubmit)}>
-            <p tabindex="0" class="focus:outline-none text-2xl font-extrabold leading-6 text-gray-800">Signup to your account</p>
+            <p tabindex="0" className="focus:outline-none text-2xl font-extrabold leading-6 text-gray-800">Signup to your account</p>
             <span className=''>
                 < label htmlFor="name" className="text-sm font-medium leading-none text-gray-800" >Name</label>
                 <input
@@ -111,7 +111,7 @@ function SignUp(props) {
 
                             },)}
                     />
-                    <div class="absolute right-0 mt-2 cursor-pointer">
+                    <div className="absolute right-0 mt-2 cursor-pointer">
                         <input className='hover:bg-blue-600 font-bold cursor-pointer text-white border-2 border-black bg-black py-2 px-4 focus:outline-none focus:ring-0 rounded-tr-xl rounded-br-lg w-full' type='button' onClick={sendOtp} value="Get OTP" />
                     </div>
                 </div>
@@ -130,7 +130,7 @@ function SignUp(props) {
                             {
                                 required: "Please enter a valid passowrd",
                             },)} />
-                    <div class="absolute right-0 mt-2 mr-3 cursor-pointer">
+                    <div className="absolute right-0 mt-2 mr-3 cursor-pointer">
                         <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/sign_in-svg5.svg" alt="viewport" onClick={() => { showPassword ? setshowPassword(false) : setshowPassword(true) }} />
                     </div>
                 </div>
@@ -153,24 +153,24 @@ function SignUp(props) {
                                     }
                                 },
                             },)} />
-                    <div class="absolute right-0 mt-2 mr-3 cursor-pointer">
+                    <div className="absolute right-0 mt-2 mr-3 cursor-pointer">
                         <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/sign_in-svg5.svg" alt="viewport" onClick={() => { showConfirmPassword ? setshowConfirmPassword(false) : setshowConfirmPassword(true) }} />
                     </div>
                 </div>
 
                 {errors["confirmPassword"] && <span className="inline-block w-full text-red-600 text-xs ml-1">{errors["confirmPassword"].message}</span>}
             </span>
-            <div class="mt-8">
+            <div className="mt-8">
                 <input className="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 text-sm font-semibold leading-none text-white focus:outline-none bg-indigo-700 border rounded hover:bg-indigo-600 py-4 w-full" type="submit" value="Create my account" />
             </div>
-            <div class="w-full flex items-center justify-between py-5">
-                <hr class="w-full bg-gray-400" />
-                <p class="text-base font-medium leading-4 px-2.5 text-gray-400">OR</p>
-                <hr class="w-full bg-gray-400  " />
+            <div className="w-full flex items-center justify-between py-5">
+                <hr className="w-full bg-gray-400" />
+                <p className="text-base font-medium leading-4 px-2.5 text-gray-400">OR</p>
+                <hr className="w-full bg-gray-400  " />
             </div>
-            <button aria-label="Continue with google" role="button" class="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-700 flex items-center w-full">
+            <button aria-label="Continue with google" role="button" className="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-700 flex items-center w-full">
                 <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/sign_in-svg2.svg" alt="google" />
-                <p class="text-base font-medium ml-4 text-gray-700">Continue with Google</p>
+                <p className="text-base font-medium ml-4 text-gray-700">Continue with Google</p>
             </button>
         </form>
     )

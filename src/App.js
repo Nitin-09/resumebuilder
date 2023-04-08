@@ -32,7 +32,7 @@ function App() {
               <Route path='/' element={<Home showAlert={showAlert} />} />
               <Route path='/auth/:user' element={<Auth showAlert={showAlert} />} />
               <Route path='/templates' element={<Template />} />
-              <Route path='/newresume' element={<Body showAlert={showAlert} />} />
+              <Route path='/newresume/:tid/:rid' element={<Body showAlert={showAlert} />} />
               {/* <Route path='/profile' element={<Profile showAlert={showAlert} />} /> */}
             </Routes>
             <Footer></Footer>

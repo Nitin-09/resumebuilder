@@ -59,7 +59,7 @@ const config={
                     "accept": "image/png, image/jpeg",
                     "required": "Please select a profile image",
                     "span": 3,
-                    "inputClassConfig": "mt-3 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 cursor-pointer peer"
+                    "inputClassConfig": "mt-3 block w-full text-sm text-black file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 cursor-pointer peer"
                 },
                 {
                     "sequence": 5,
@@ -202,7 +202,7 @@ const config={
                     "span": 2,
                     "reposnsive_span":6,
                     "inputClassConfig":"cursor-pointer peer mx-3",
-                    "labelClassConfig":"text-xs text-gray-500 cursor-pointer ",
+                    "labelClassConfig":"text-xs text-black cursor-pointer ",
                     "condition":(a)=>{
                         let element=document.getElementById("schoolEndDate")
                         if(a){
@@ -317,7 +317,7 @@ const config={
                     "type": "checkbox",
                     "span": 2,
                     "inputClassConfig":"cursor-pointer peer order-1 mx-3",
-                    "labelClassConfig":"text-sm text-gray-500 cursor-pointer order-2 ",
+                    "labelClassConfig":"text-sm text-black cursor-pointer order-2 ",
                     "condition":(a)=>{
                         let element=document.getElementById("workEndDate")
                         if(a){
@@ -440,7 +440,7 @@ const config={
                     "type": "checkbox",
                     "span": 3,
                     "inputClassConfig":"cursor-pointer peer order-1 mx-3",
-                    "labelClassConfig":"text-sm text-gray-500 cursor-pointer order-2 ",
+                    "labelClassConfig":"text-sm text-black cursor-pointer order-2 ",
                     "condition":(a)=>{
                         let element=document.getElementById("skillRating")
                         if(a){

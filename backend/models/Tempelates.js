@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose;
 const TempelateSchema = new Schema({
-    tempelateId: {
+    tempelateURL: {
         type:String,
         unique: true,
     },

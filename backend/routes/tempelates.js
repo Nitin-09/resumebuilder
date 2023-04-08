@@ -6,7 +6,7 @@ const Tempelates = require('../models/Tempelates')
 router.post('/insertTempelate',
     async (req, res) => {
         try {
-            const tempelate = new Tempelates({ tempelateId: req.body.tempelateId })
+            const tempelate = new Tempelates({ tempelateURL: req.body.tempelateURL })
             const tempelateData = await tempelate.save()
             res.json(tempelateData)
 

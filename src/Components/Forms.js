@@ -8,34 +8,50 @@ export default function Forms(props) {
     const { Information, setInformation, activeKey, ResumeId } = props
     const context = useContext(ResumeContext)
     const { submitDetails } = context
-
     const [skillProgress, setskillProgress] = useState(1)
     const [activeChipIndex, setactiveChipIndex] = useState(0)
 
     const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm({ mode: "all" });
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         let Obj = {}
         Config[activeKey][0].input?.forEach(element => {
             Obj[element.name] = data[element.name]
         });
         if (Obj["checkEducation"] && activeKey === 'education') Obj["schoolEndDate"] = "Present";
         if (Obj["checkWork"] && activeKey === 'workExperience') Obj["workEndDate"] = "Present";
-        if (watch("checkBar") && activeKey === 'skills') Obj["skillRating"] = skillProgress;
+        if (!watch("checkBar") && activeKey === 'skills') Obj["skillRating"] = skillProgress;
+        if (activeKey === 'profile') {
+            const data = new FormData();
+            var file = Obj['profile'][0];
+            data.append("file", file);
+            data.append("upload_preset", "Nitin980")
+            data.append("cloud_name", "defonzszt")
+            await fetch("https://api.cloudinary.com/v1_1/dt5cpgzfn/image/upload", {
+                method: "post",
+                body: data
+            })
+                .then(async res => await res.json())
+                .then(data => {
+                    console.log(data)
+                    Obj['URL'] = data.url
+                    console.log(Obj)
+                })
+                .catch(err => console.log(err))
+        }
         if (!Information[activeKey][0].details) {
             let Data = Information
             Data[activeKey][0] = Obj
-            setInformation({})
-            setInformation(Data)
+            setInformation(JSON.parse(JSON.stringify(Data)))
+            console.log(JSON.stringify(Information))
         }
         else {
             let Data = Information
             Data[activeKey][0].details[activeChipIndex] = Obj
-            setInformation({})
-            setInformation(Data)
+            setInformation(JSON.parse(JSON.stringify(Data)))
         }
         submitDetails(Information, ResumeId)
         // console.log(Information)
-        props.showAlert(`${activeKey} data subbmitted successfully`, "success")
+        // props.showAlert(`${activeKey} data subbmitted successfully`, "success")
     }
 
     const handelAdd = () => {
@@ -84,11 +100,14 @@ export default function Forms(props) {
     useEffect(() => {
         setactiveChipIndex(0)
     }, [activeKey])
-
+    useEffect(() => {
+        console.log(skillProgress)
+    }, [skillProgress])
+    
 
 
     return (
-        <div className="items-center basis-9/12 pt-1 pb-3 h-fit">
+        <div className="items-center basis-9/12 pt-1 pb-3 h-fit lg:h-screen">
             <form id="data" className="grid grid-cols-6 gap-2 w-full h-fit md:mt-10 px-3 md:px-10" onSubmit={handleSubmit(onSubmit)}>
                 <div className='col-span-6 flex flex-wrap items-center gap-2 md:gap-5 mb-4'>
                     {Information[activeKey][0]?.details?.map((item, index) => (
@@ -105,7 +124,7 @@ export default function Forms(props) {
 
                 {
                     Config[activeKey][0].input.map((element) => {
-                        const InputClasses = "block py-2.5 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer appearance-none m-1 autofill:m-1"
+                        const InputClasses = "block py-2.5 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer appearance-none m-1 autofill:m-1"
                         const LabelClasses = "text-xs block peer-focus:font-medium absolute md:text-sm text-black duration-300 transform -translate-y-6 scale-100 top-3 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                         let divc = ""
                         if (element.span === 6)
