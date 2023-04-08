@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom"
+import {useNavigate } from "react-router-dom"
 
 function SignUp(props) {
     const [showPassword, setshowPassword] = useState(false)
@@ -63,7 +63,7 @@ function SignUp(props) {
                             required: "Name is a required field",
                             pattern:
                             {
-                                value: new RegExp("[A-Za-z\s]{3,}"),
+                                value: new RegExp("[A-Za-z/s]{3,}"),
                                 message: "Name must be at least 3 characters long"
                             },
                         },)} />
@@ -104,7 +104,7 @@ function SignUp(props) {
                                     message: "Please enter a valid six digit OTP"
                                 },
                                 validate: (val) => {
-                                    if (Otp != val) {
+                                    if (Otp !== val) {
                                         return "OTP invalid!";
                                     }
                                 },
@@ -148,7 +148,7 @@ function SignUp(props) {
                             {
                                 required: "Password cannot be blank",
                                 validate: (val) => {
-                                    if (watch('password') != val) {
+                                    if (watch('password') !== val) {
                                         return "Your passwords do no match";
                                     }
                                 },
@@ -168,7 +168,7 @@ function SignUp(props) {
                 <p className="text-base font-medium leading-4 px-2.5 text-gray-400">OR</p>
                 <hr className="w-full bg-gray-400  " />
             </div>
-            <button aria-label="Continue with google" role="button" className="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-700 flex items-center w-full">
+            <button className="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-700 flex items-center w-full">
                 <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/sign_in-svg2.svg" alt="google" />
                 <p className="text-base font-medium ml-4 text-gray-700">Continue with Google</p>
             </button>

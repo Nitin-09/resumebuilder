@@ -1,12 +1,12 @@
 import React,{useState} from 'react'
-import { set, useForm } from "react-hook-form";
+import {useForm } from "react-hook-form";
 import { Link, useNavigate } from 'react-router-dom';
 
 function Login(props) {
     const [showPassword, setshowPassword] = useState(false)
     let navigate = useNavigate()
     const host = "http://localhost:5000"
-    const { register, handleSubmit, watch, formState: { errors } } = useForm({ mode: "all" });
+    const { register, handleSubmit, formState: { errors } } = useForm({ mode: "all" });
     const onSubmit = async (data) => {
         const response = await fetch(`${host}/api/auth/login`, {
             method: 'POST',

@@ -22,6 +22,7 @@ function Body() {
     })
     useEffect(() => {
         fetchResume(rid, setInformation)
+        // eslint-disable-next-line
     }, [])
     return (
         <div className='bg-form bg-no-repeat bg-cover'>

@@ -9,6 +9,7 @@ function Resume(props) {
     }, [Information])
 
     const Resume = {
+        // eslint-disable-next-line
         ["642eafedd1993f6f03250ee5"]:
             (<div className='grid grid-cols-2 h-full lg:p-8 bg-white'>
                 <div className='h-full flex flex-col gap-2 lg:gap-5 border-r-2'>
@@ -146,7 +147,7 @@ function Resume(props) {
                                     <div>
                                         <div className='flex gap-4'>
                                             <span className='text-xs lg:text-sm font-semibold'>{element.projectName}</span>
-                                            <a className='text-xs lg:text-sm font-bold lg:font-semibold text-blue-400 whitespace-nowrap overflow-x-hidden'>{element.projectLink}</a>
+                                            <span className='text-xs lg:text-sm font-bold lg:font-semibold text-blue-400 whitespace-nowrap overflow-x-hidden'>{element.projectLink}</span>
                                         </div>
                                         <ul className='text-xs list-disc'>
                                             {element.projectDescription}
@@ -261,7 +262,7 @@ function Resume(props) {
                         {Information?.education[0]?.details.length > 0 ? Information.education[0].details.map((element) => {
                             return (
                                 <div className='flex gap-3'>
-                                    <span className='text-xs lg:text-lg font-semibold'>{element.schoolStartDate.substring(0, 4)} - {element.schoolEndDate != 'Present' ? element.schoolEndDate.substring(0, 4) : element.schoolEndDate}</span>
+                                    <span className='text-xs lg:text-lg font-semibold'>{element.schoolStartDate.substring(0, 4)} - {element.schoolEndDate !== 'Present' ? element.schoolEndDate.substring(0, 4) : element.schoolEndDate}</span>
                                     <div className='flex flex-col'>
                                         <span className='text-xs lg:text-lg font-bold lg:font-semibold'>{element.schoolName}</span>
                                         <span className='text-xs'>{element.degree}, {element.fieldOfStudy}</span>
