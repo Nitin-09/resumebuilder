@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 const ResumeState = (props) => {
   const [ResumeData, setResumeData] = useState([])
-  const host = "http://localhost:5000"
+  const host =  process.env.REACT_APP_APIKEY
   //Create Resume 
   const submitDetails = (details, ResumeId) => {
     //api

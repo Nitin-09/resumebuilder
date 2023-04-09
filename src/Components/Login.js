@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 function Login(props) {
     const [showPassword, setshowPassword] = useState(false)
     let navigate = useNavigate()
-    const host = "http://localhost:5000"
+    const host = process.env.REACT_APP_APIKEY
     const { register, handleSubmit, formState: { errors } } = useForm({ mode: "all" });
     const onSubmit = async (data) => {
         const response = await fetch(`${host}/api/auth/login`, {

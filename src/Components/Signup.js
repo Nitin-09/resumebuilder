@@ -6,7 +6,7 @@ function SignUp(props) {
     const [showPassword, setshowPassword] = useState(false)
     const [showConfirmPassword, setshowConfirmPassword] = useState(false)
     let navigate = useNavigate()
-    const host = "http://localhost:5000"
+    const host =  process.env.REACT_APP_APIKEY
     const { register, handleSubmit, watch, formState: { errors } } = useForm({ mode: "all" });
     const onSubmit = async (data) => {
         const response = await fetch(`${host}/api/auth/createUser`, {
