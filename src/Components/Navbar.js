@@ -27,7 +27,7 @@ function Navbar() {
                         </div>
                         <hr className='mx-3 border-b-2 border-black' />
                         <div className='flex flex-col p-2 gap-2 text-lg select-none'>
-                            <span className='cursor-pointer hover:bg-[#5535df] border-black hover:text-white hover:underline p-1'>Profile</span>
+                            <Link to='/profiles' className='cursor-pointer hover:bg-[#5535df] border-black hover:text-white hover:underline p-1'>Profile</Link>
                             <Link to='/templates' className='cursor-pointer hover:bg-[#5535df] border-black hover:text-white hover:underline p-1'>Resume Templates</Link>
                             <span className='cursor-pointer hover:bg-[#5535df] border-black hover:text-white hover:underline p-1'>Create New Resume</span>
                             <span className='cursor-pointer hover:bg-[#5535df] border-black hover:text-white hover:underline p-1'>My Resume</span>

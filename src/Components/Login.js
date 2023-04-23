@@ -5,9 +5,10 @@ import { Link, useNavigate } from 'react-router-dom';
 function Login(props) {
     const [showPassword, setshowPassword] = useState(false)
     let navigate = useNavigate()
-    const host = process.env.REACT_APP_APIKEY
+    const host=process.env.REACT_APP_APIKEY
     const { register, handleSubmit, formState: { errors } } = useForm({ mode: "all" });
     const onSubmit = async (data) => {
+        console.log("hui")
         const response = await fetch(`${host}/api/auth/login`, {
             method: 'POST',
             headers: {
@@ -18,6 +19,7 @@ function Login(props) {
         const json = await response.json()
         if (json.Status) {
             localStorage.setItem('token', json.authtoken)
+            console.log(json.Status)
             navigate('/')
             props.showAlert("Login Sucessfull", "Succes")
         }

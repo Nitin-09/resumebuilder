@@ -7,7 +7,7 @@ import Navbar from "./Components/Navbar";
 import Alert from "./Components/Alert"
 import Template from "./Components/Template"
 import Footer from "./Components/Footer"
-// import Profile from "./Components/Profiles"
+import Profiles from "./Components/Profiles"
 import { useState } from "react"
 function App() {
   const [alert, setalert] = useState(null)
@@ -33,7 +33,7 @@ function App() {
               <Route path='/auth/:user' element={<Auth showAlert={showAlert} />} />
               <Route path='/templates' element={<Template />} />
               <Route path='/newresume/:tid/:rid' element={<Body showAlert={showAlert} />} />
-              {/* <Route path='/profile' element={<Profile showAlert={showAlert} />} /> */}
+              <Route path='/profiles' element={<Profiles showAlert={showAlert} />} />
             </Routes>
             <Footer></Footer>
           </div>
