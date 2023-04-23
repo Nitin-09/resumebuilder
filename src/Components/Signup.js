@@ -6,7 +6,7 @@ function SignUp(props) {
     const [showPassword, setshowPassword] = useState(false)
     const [showConfirmPassword, setshowConfirmPassword] = useState(false)
     let navigate = useNavigate()
-    const host =  process.env.REACT_APP_APIKEY
+    const host =  "https://resumeforgebkend.netlify.app/.netlify/functions/"
     const { register, handleSubmit, watch, formState: { errors } } = useForm({ mode: "all" });
     const onSubmit = async (data) => {
         const response = await fetch(`${host}/api/auth/createUser`, {

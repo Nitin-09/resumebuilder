@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 const ResumeState = (props) => {
   const [ResumeData, setResumeData] = useState([])
-  const host =  process.env.REACT_APP_APIKEY
+  const host =  "https://resumeforgebkend.netlify.app/.netlify/functions/"
   //Create Resume 
   const submitDetails = (details, ResumeId) => {
     //api
