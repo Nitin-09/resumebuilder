@@ -11,7 +11,7 @@ function Template() {
   const [Templatedata, setTemplatedata] = useState({})
   const createResume = (tid) => {
     //api
-    const response = axios.post(`http://localhost:5000/api/resume/createresume`, { tid }, {
+    const response = axios.post(`https://resumeforgebkend.netlify.app/.netlify/functions/api/resume/createresume`, { tid }, {
       headers: {
         'Content-Type': 'application/json',
         'auth-token': localStorage.getItem('token')
