@@ -35,28 +35,28 @@ function Profiles() {
             {
                 ResumeData.map((element, index) => {
                     return (
-                        <section class="w-64 mx-auto bg-[#0b2d54] rounded-2xl px-8 py-6 shadow-lg">
-                            <div class="flex items-center justify-between">
+                        <section className="w-64 mx-auto bg-[#0b2d54] rounded-2xl px-8 py-6 shadow-lg">
+                            <div className="flex items-center justify-between">
                                 <span class="text-gray-400 text-sm">2d ago</span>
                                 <span class="text-emerald-400">
                                    <button className='hover:underline' onClick={()=>{navigate(`/newresume/${element.tempelateId}/${element._id}`)}}>Edit Resume</button>
                                 </span>
                             </div>
-                            <div class="mt-6 w-fit mx-auto">
-                                <img src={element.profile[0].URL} class="rounded-full w-44 h-44 " alt="profile picture" srcset="" />
+                            <div className="mt-6 w-fit mx-auto">
+                                <img src={element.profile[0].URL} class="rounded-full w-44 h-44 " alt="" />
                             </div>
 
-                            <div class="mt-8 ">
+                            <div className="mt-8 ">
                                 <h2 class="text-white font-bold text-2xl tracking-wide">{element.profile[0].firstName} <br /> {element.profile[0].lastName}</h2>
                             </div>
-                            <p class="text-emerald-400 font-semibold mt-2.5" >
+                            <p className="text-emerald-400 font-semibold mt-2.5" >
                                 Profile Incomplete
                             </p>
 
-                            <div class="h-1 w-full bg-black mt-8 rounded-full">
+                            <div className="h-1 w-full bg-black mt-8 rounded-full">
                                 <div class={`h-1 rounded-full w-[${calculatePercentage(element)}%] bg-yellow-500 `}></div>
                             </div>
-                            <div class="mt-3 text-white text-sm">
+                            <div className="mt-3 text-white text-sm">
                                 <span class="text-gray-400 font-semibold">Status:</span>
                                 <span>
                                 {calculatePercentage(element)}%
