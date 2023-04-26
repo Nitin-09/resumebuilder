@@ -9,7 +9,7 @@ function Navbar() {
         <>
             <div className='relative z-50'>
                 <div className='flex justify-between w-full lg:px-10'>
-                    <img className='h-[13vh] lg:h-[22vh]' src={Logo} alt="" />
+                   <Link to='/'><img className='h-[13vh] lg:h-[22vh]' src={Logo} alt=""/></Link>
                     {localStorage.getItem('token') ?
                         <button type='button' className='text-4xl text-white' onClick={() => { setdrawerState(true) }}><i className="fa-solid fa-bars"></i></button> :
                         <div className='flex items-center justify-center my-auto'>
@@ -27,6 +27,7 @@ function Navbar() {
                         </div>
                         <hr className='mx-3 border-b-2 border-black' />
                         <div className='flex flex-col p-2 gap-2 text-lg select-none'>
+                            <Link to='/' className='cursor-pointer hover:bg-[#5535df] border-black hover:text-white hover:underline p-1'>Home</Link>
                             <Link to='/profiles' className='cursor-pointer hover:bg-[#5535df] border-black hover:text-white hover:underline p-1'>Profile</Link>
                             <Link to='/templates' className='cursor-pointer hover:bg-[#5535df] border-black hover:text-white hover:underline p-1'>Resume Templates</Link>
                             <Link to='/templates' className='cursor-pointer hover:bg-[#5535df] border-black hover:text-white hover:underline p-1'>Create New Resume</Link>
