@@ -286,6 +286,7 @@ function Resume(props) {
                 </div>
             </div>
         </div >),
+         // eslint-disable-next-line
         ["6448eba23a1d446b623a8812"]:
             (<div className='flex flex-col justify-end h-full'>
                 <div className='h-[20vh] bg-[#9f0f0f] flex px-4'>
